@@ -1,0 +1,494 @@
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+/* Estilo para cambiar el color de fondo de la fila a rojo cuando el cursor pasa por encima */
+.mat-row:hover {
+  background-color: #e5e5e5 !important; /* Cambia el color de fondo a rojo */
+  transition: background-color 0.3s ease; /* Efecto de transición suave */
+}
+
+/* Asegura una transición suave cuando el cursor pasa por encima */
+.mat-row {
+  transition: background-color 0.3s ease;
+}
+
+/* Cambiar el fondo de las cabeceras */
+.mat-header-cell {
+  background-color: #1e88e5 !important;
+  /* Color de fondo */
+  color: white;
+  /* Color del texto */
+  font-weight: bold;
+  /* Texto en negrita */
+  text-align: center;
+  /* Centrar el texto */
+}
+
+.mat-cell {
+  text-align: center !important; /* Centra el contenido en las celdas */
+}
+
+.center {
+  text-align: center; /* Centra el texto y los botones */
+  vertical-align: middle; /* Alineación vertical */
+}
+
+.row {
+  display: flex;
+  flex-direction: column; /* Mostrar elementos en columna */
+  padding: 10px;
+  margin-bottom: 10px; /* Espaciado entre filas */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.span {
+  font-weight: 500
+}
+
+.cell {
+  margin-bottom: 5px; /* Espaciado entre celdas */
+}
+
+.example-container .mat-form-field + .mat-form-field {
+}
+
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+fieldset {
+  legend {
+    font-family: "Poppins", sans-serif;
+    color: #1a1a1a
+  }
+  padding: 20px;
+  margin-bottom: 20px;
+  border: solid 1px gray;
+  border-radius: 8px;
+
+  .mat-form-field {
+    padding: 10px 0;
+  }
+}
+
+/* Contenedor principal */
+.form-container {
+  display: flex;
+  justify-content: center;
+  /* padding: 16px; */
+}
+
+mat-card {
+  width: 100%;
+  /*max-width: 600px;*/
+  margin: 0 auto;
+}
+
+/* Rejilla para el formulario */
+.form-grid {
+  display: grid;
+  gap: 10px; /* Espacio entre filas y columnas */
+  grid-template-columns: 1fr; /* Una columna por defecto */
+}
+
+.field-col-1
+.field-col-2
+.field-col-3
+.field-col-4
+.field-col-5
+.field-col-6
+.field-col-7
+.field-col-8
+.field-col-9
+.field-col-10
+.field-col-11
+.field-col-12 {
+  grid-column: span 1; /* Ocupa ambas columnas en pantallas grandes */
+}
+
+/* .field-full {
+  grid-column: span 1;
+}
+
+.field-large {
+  grid-column: span 1;
+}
+
+.field-small {
+  grid-column: span 1;
+} */
+
+/* Ajuste responsivo */
+@media (min-width: 600px) {
+  .form-grid {
+    /*grid-template-columns: 3fr 1fr;*/ /* Correo: 75%, Teléfono: 25% */
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .field-col-1 {
+    grid-column: span 1; /* Ocupa ambas columnas en pantallas grandes */
+  }
+
+  .field-col-2 {
+    grid-column: span 2; /* Alinea en la primera parte (75%) */
+  }
+
+  .field-col-3 {
+    grid-column: span 3; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-4 {
+    grid-column: span 4; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-5 {
+    grid-column: span 5; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-6 {
+    grid-column: span 6; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-7 {
+    grid-column: span 7; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-8 {
+    grid-column: span 8; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-9 {
+    grid-column: span 9; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-10 {
+    grid-column: span 10; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-11 {
+    grid-column: span 11; /* Alinea en la segunda parte (25%) */
+  }
+
+  .field-col-12 {
+    grid-column: span 12; /* Alinea en la segunda parte (25%) */
+  }
+
+  /* .field-full {
+    grid-column: span 2; 
+  }
+
+  .field-large {
+    grid-column: 1; 
+  }
+
+  .field-small {
+    grid-column: 2; 
+  } */
+}
+
+/* mat-form-field.mat-form-field {
+  width: 100%;
+} */
+
+input[readonly], textarea[readonly] {
+  background-color: #d7eef5; /* Color de fondo deseado */
+  color: #333; /* Opcional: color del texto */
+  cursor: not-allowed; /* Opcional: indica que no se puede editar */
+}
+
+
+
+
+
+/* table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  ng-container td, th {
+    font-size: 10pt!important;
+  }
+  
+  .icon-button {
+    background-color: #f2f2f2 !important;
+    border: none !important;
+    min-width: 0;
+    padding: 0;  
+    cursor: pointer;
+  }
+  
+  .action-buttons {
+    display: flex;   
+    gap: 8px;       
+  }
+  
+  .icon-button:hover mat-icon {
+    background-color: hsl(240, 20%, 90%);
+    border-radius: 100%;
+    height: auto;
+    width: auto;
+  }
+  
+  
+  .filtrar {
+    margin-left: 15px;
+    margin-top: 15px;
+  }
+  
+  .filtrar span {
+    margin-right: 20px;
+    font-size: 10pt;
+  }
+  
+  .mat-elevation-z8 {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  table {
+    width: 100%;
+    align-content: center;
+  
+  }
+  
+  .agregar {
+    margin-top: 15px;
+    margin-right: 15px;
+    float: right;
+    background-color: #3B65FF;
+    color: white;
+  }
+  
+  
+ 
+  .table-header {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    position: relative;
+    text-align: center;
+  }
+  
+  .table-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background-color: #3498db;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .table-header:hover::after {
+    width: 100%;
+  }
+  
+  .table-title {
+    font-size: 2.0em;
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+  
+  }
+  
+  .table-subtitle {
+    font-size: 11pt;
+    color: #7f8c8d;
+    margin: 10px 0 0;
+    font-weight: 400;
+  }
+  
+  @media (max-width: 768px) {
+    .table-header {
+      padding: 15px;
+    }
+    .table-title {
+      font-size: 12pt;
+    }
+    .table-subtitle {
+      font-size: 10pt;
+    }
+  }
+  
+  div {
+    font-size: 10pt!important;
+  }
+  
+  
+  div .mat-sort-header-contend{
+    font-family: Arial, sans-serif !important;
+    font-size: 10pt!important;
+  }
+   */
+
+
+/* 
+:root {
+    --grid-gap: 1rem;
+    --section-spacing: 2rem;
+    --border-radius: 4px;
+  }
+  
+
+  .especialidad-container {
+    max-width: 1200px;
+    margin: 0.5rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+
+  .especialidad-header {
+
+    margin-bottom: 0.5rem;
+  
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+    }
+  
+    .header-subtitle {
+      color: #666;
+      margin-top: 0.25rem;
+    }
+  }
+  
+
+  .form-section {
+    background: #fff;
+
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-bottom: var(--section-spacing);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+  
+      mat-icon {
+        color: #666;
+      }
+    }
+  }
+  
+
+  .form-grid {
+    display: grid;
+
+    gap: 1rem;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  
+
+  .field-small {
+    grid-column: span 2;
+  
+    @media (max-width: 768px) {
+      grid-column: span 6;
+    }
+  
+    @media (max-width: 480px) {
+      grid-column: span 12;
+    }
+  }
+  
+  .field-medium {
+    grid-column: span 4;
+  
+    @media (max-width: 768px) {
+      grid-column: span 6;
+    }
+  
+    @media (max-width: 480px) {
+      grid-column: span 12;
+    }
+  }
+  
+  .field-large {
+    grid-column: span 10;
+  
+    @media (max-width: 768px) {
+      grid-column: span 12;
+    }
+  }
+  
+  .field-date {
+    grid-column: span 2;
+  
+    @media (max-width: 768px) {
+      grid-column: span 6;
+    }
+  
+    @media (max-width: 480px) {
+      grid-column: span 12;
+    }
+  }
+  
+
+  .form-field {
+    .field-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+  
+      mat-icon {
+        font-size: 1.1rem;
+        width: 1.1rem;
+        height: 1.1rem;
+        color: #666;
+      }
+  
+      .required {
+        color: #f44336;
+      }
+    }
+  
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3rem;
+    margin-top: 2rem;
+  
+    @media (max-width: 480px) {
+      flex-direction: column;
+  
+      button {
+        width: 100%;
+      }
+    }
+  }
+   */

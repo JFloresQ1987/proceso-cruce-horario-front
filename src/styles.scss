@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+::ng-deep .mat-cell, 
+::ng-deep .mat-header-cell {
+  padding: 0 5px; /* Cambiar a 5px en vez de 16px */
+}
+
+.large-code {
+  font-size: 15pt !important;
+}

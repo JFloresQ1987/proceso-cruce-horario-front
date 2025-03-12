@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+html{
+  --mat-tree-node-text-font: Arial, sans-serif;
+  --mat-toolbar-title-text-font: Arial, sans-serif;
+  --mat-tree-node-text-size: 10pt;
+  --mat-tree-node-text-weight: 400;
+}
+html, body {
+  height: 100%;
+  font-size: 10pt !important;
+  font-family: Arial, sans-serif !important;
+}
+
+:root {
+  font-size: 10pt;  /* Tamaño base de fuente */
+  font-family: 'Arial', sans-serif;  /* Tipo de fuente */
+}
+
+/*input.mat-input{
+  width: 100%!important;
+}*/
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 10pt !important;
+}
+
+/** .span-f span {
+  font-size: 10pt !important;
+
+}*/
+
+
+/*******************************************************************/
+
+/*.mat-body-1{
+  font-size: 10pt!important;
+  font-family: Arial, sans-serif!important;
+}
+
+body.mat-typography{
+  font-size: 10pt!important;
+  font-family: Arial, sans-serif!important;
+}*/
+
+.mdc-text-field--outlined label{
+  height:2em;
+  font-family: Arial, sans-serif;
+  font-size: 10pt!important;
+}
+
+
+.mat-mdc-form-field-flex {
+    height: 2em;
+    align-items: center !important;
+    font-family: Arial, sans-serif!important;
+    align-content: center !important;
+    font-size: 10pt !important;
+  }
+
+/*div.mat-mdc-form-field-infix {
+  font-family: Arial, sans-serif!important;
+  font-size: 10pt!important;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+}*/
+
+
+span {
+  font-family: Arial, sans-serif !important;
+  font-size: 10pt !important;
+}
+
+.mat-button span,
+.mat-toolbar span,
+.mat-card span {
+  font-size: 10pt !important;
+  font-family: Arial, sans-serif !important;
+}
+
+td , th {
+  font-family: Arial, sans-serif !important;
+  font-size: 10pt!important;
+}
+
+table {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+}
+
+.mat-mdc-header-row {
+  font-family: Arial, sans-serif !important;
+  font-size: 10pt!important;
+}
+
+element.style {
+  font-family: Arial, sans-serif !important;
+  font-size: 10pt;
+}
+
+mat-mdc-floating-label {
+  font-family: Arial, sans-serif !important;
+  font-size: 10pt!important;
+}
+
+.mdc-floating-label {
+  font-family: Arial, sans-serif !important;
+  font-size: 10pt!important;
+}
+
+
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: calc(var(--mat-form-field-container-height)/3);
+}
+
+/*.mat-form-field-container-height {
+  height: auto !important;
+}*/
+

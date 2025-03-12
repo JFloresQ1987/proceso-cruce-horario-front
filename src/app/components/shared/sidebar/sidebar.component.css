@@ -1,0 +1,6 @@
+.sidebar {
+    min-width: 300px; /* Define el ancho mínimo */
+    max-width: 500px; /* Opcional: puedes definir un ancho máximo */
+    width: 100%; /* Asegura que se ajuste de forma responsiva */
+  }
+  

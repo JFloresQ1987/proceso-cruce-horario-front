@@ -1,0 +1,20 @@
+<a href="#" class="m-r-20 hidden-sm-up" mat-raised-button color="warn">{{
+  fullName
+}}</a>
+<button
+  [matMenuTriggerFor]="profile"
+  mat-icon-button
+  class="m-r-5 p-0 d-flex jc-c align-items-center"
+>
+  <img src="assets/images/users/9.png" alt="user" class="profile-pic" />
+</button>
+<mat-menu #profile="matMenu" class="mymegamenu">
+  <!-- <button mat-menu-item><mat-icon>settings</mat-icon> Settings</button>
+  <button mat-menu-item><mat-icon>account_box</mat-icon> Profile</button> -->
+  <!-- <button mat-menu-item (click)="changePassword()">
+    <mat-icon>refresh</mat-icon> Cambiar clave
+  </button> -->
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon> Cerrar sesión
+  </button>
+</mat-menu>

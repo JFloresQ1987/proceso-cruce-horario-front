@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Inactividad Detectada</h1>
+<mat-dialog-content>
+  <p>
+    Tu sesión expirará en {{ countdown }} segundos. ¿Deseas continuar conectado?
+  </p>
+</mat-dialog-content>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Cerrar Sesión
+  </button>
+  <button mat-raised-button color="primary" (click)="extendSession()">
+    <mat-icon>notifications_active</mat-icon>
+    Continuar
+  </button>
+</div>

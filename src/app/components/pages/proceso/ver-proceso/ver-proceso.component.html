@@ -1,0 +1,362 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Ver Proceso</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- <fieldset>
+          <legend>Criterios de Búsqueda</legend>
+          <div class="form-grid">
+            <mat-form-field
+              appearance="fill"
+              class="field-col-9"
+              hintLabel="Máximo 150 caracteres"
+            >
+              <mat-label>Descripción</mat-label>
+              <input
+                #input
+                matInput
+                [(ngModel)]="descripcion"
+                maxlength="150"
+                (keydown.enter)="search()"
+                autofocus
+              />
+              <mat-hint align="end">
+                {{ input.value?.length || 0 }}/150
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="field-col-3">
+              <mat-label>Estado</mat-label>
+              <mat-select [(ngModel)]="estado">
+                <mat-option value="">Todos</mat-option>
+                <mat-option value="1">Activo</mat-option>
+                <mat-option value="0">Inactivo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div style="text-align: left; margin-top: 20px">
+            <button
+              type="button"
+              mat-raised-button
+              color="primary"
+              (click)="search()"
+              matTooltip="Buscar"
+              matTooltipPosition="above"
+            >
+              <mat-icon>search</mat-icon>
+              Buscar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              color="primary"
+              style="margin-left: 15px"
+              (click)="clear()"
+              matTooltip="Limpiar"
+              matTooltipPosition="above"
+            >
+              <mat-icon>cached</mat-icon>
+              Limpiar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              color="warn"
+              style="margin-left: 15px"
+              matTooltip="Nuevo"
+              matTooltipPosition="above"
+              (click)="navegarNuevo()"
+            >
+              <mat-icon>note_add</mat-icon>
+              Nuevo
+            </button>
+          </div>
+        </fieldset> -->
+    <!-- <fieldset>
+          <legend>Listado de Resultados</legend> -->
+    <div style="text-align: left; margin-bottom: 20px">
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="refresh()"
+        matTooltip="Refrescar"
+        matTooltipPosition="above"
+      >
+        <mat-icon>cached</mat-icon>
+        Refrescar
+      </button>
+    </div>
+    <div class="table-container">
+      <div class="table-wrapper custom-table">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 large-table"
+          *ngIf="!isSmallScreen"
+        >
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+              Nro
+            </th>
+            <td
+              mat-cell
+              class="center"
+              *matCellDef="let element; let i = index"
+            >
+              {{ i + 1 + paginator.pageIndex * paginator.pageSize }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaInicio">
+            <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+              Fecha Inicio
+            </th>
+            <td mat-cell class="center" *matCellDef="let element">
+              {{ element.fechaInicio | date : "dd/MM/yyyy HH:mm:ss" }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaFin">
+            <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+              Fecha Fin
+            </th>
+            <td mat-cell class="center" *matCellDef="let element">
+              {{ element.fechaFin | date : "dd/MM/yyyy HH:mm:ss" }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="estado">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="mat-header-cell"
+              style="min-width: 130px"
+            >
+              Estado
+            </th>
+            <td mat-cell class="center" *matCellDef="let element">
+              <ng-template [ngIf]="element.estado === 1">
+                <span class="bg-warning text-white rounded font-10 p-l-5 p-r-5"
+                  >Creado</span
+                >
+              </ng-template>
+              <ng-template [ngIf]="element.estado === 2">
+                <span class="bg-warning text-white rounded font-10 p-l-5 p-r-5"
+                  >En Proceso</span
+                >
+              </ng-template>
+              <ng-template [ngIf]="element.estado === 3">
+                <span class="bg-success text-white rounded font-10 p-l-5 p-r-5"
+                  >Satisfactorio</span
+                >
+              </ng-template>
+              <ng-template [ngIf]="element.estado === 4">
+                <span class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
+                  >Con Error</span
+                >
+              </ng-template>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="accion">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="mat-header-cell center"
+              style="min-width: 180px"
+            >
+              Acciones
+            </th>
+            <td
+              mat-cell
+              class="center"
+              *matCellDef="let element; let i = index"
+            >
+              <button
+                type="button"
+                mat-icon-button
+                style="color: purple"
+                matTooltip="Descargar el reporte resumido."
+                (click)="navegarDownloadResumeReport(element.idProceso)"
+                *ngIf="element.estado === 3"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                style="color: green"
+                matTooltip="Descargar reporte detallado."
+                (click)="navegarDownloadFullReport(element.idProceso)"
+                *ngIf="element.estado === 3"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                color="primary"
+                matTooltip="Consultar detalle."
+                (click)="navegarDetail(element.idProceso)"
+              >
+                <mat-icon>remove_red_eye</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                color="info"
+                matTooltip="Descargar observaciones."
+                (click)="navegarDownload(element.idProceso)"
+                *ngIf="element.estado === 3"
+              >
+                <mat-icon>get_app</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                color="warn"
+                matTooltip="Finalizar proceso."
+                *ngIf="element.estado === 1 || element.estado === 2"
+                (click)="navegarFinish(element.idProceso)"
+              >
+                <mat-icon>thumb_down</mat-icon>
+              </button>
+              <!-- <button
+                      type="button"
+                      mat-icon-button
+                      color="warn"
+                      tabindex="-1"
+                      (click)="navegarBaja(element.idEspecialidad)"
+                      matTooltip="Inactivar registro."
+                      *ngIf="element.estado === '1'"
+                    >
+                      <mat-icon>thumb_down</mat-icon>
+                    </button> -->
+            </td>
+          </ng-container>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell no-data-cell" colspan="5" style="height: 50px">
+              No hay registros encontrados.
+            </td>
+          </tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="mat-row"
+          ></tr>
+        </table>
+        <!-- Inicio vista estilo "lista" para pantallas pequeñas -->
+        <div class="small-table" *ngIf="isSmallScreen">
+          <div
+            class="row"
+            *ngFor="let element of dataSource.data; let i = index"
+          >
+            <div class="field-col-12">
+              <span class="span">Nro: </span
+              ><span>{{
+                i + 1 + paginator.pageIndex * paginator.pageSize
+              }}</span>
+            </div>
+            <div class="field-col-12">
+              <span class="span">Fecha Inicio: </span
+              ><span>{{
+                element.fechaInicio | date : "dd/MM/yyyy HH:mm:ss"
+              }}</span>
+            </div>
+            <div class="field-col-12">
+              <span class="span">Fecha Fin: </span
+              ><span>{{
+                element.fechaFin | date : "dd/MM/yyyy HH:mm:ss"
+              }}</span>
+            </div>
+            <div class="field-col-12">
+              <span class="span">Estado: </span
+              ><ng-template [ngIf]="element.estado === 1">
+                <span class="bg-warning text-white rounded font-10 p-l-5 p-r-5"
+                  >Creado</span
+                >
+              </ng-template>
+              <ng-template [ngIf]="element.estado === 2">
+                <span class="bg-warning text-white rounded font-10 p-l-5 p-r-5"
+                  >En Proceso</span
+                >
+              </ng-template>
+              <ng-template [ngIf]="element.estado === 3">
+                <span class="bg-success text-white rounded font-10 p-l-5 p-r-5"
+                  >Satisfactorio</span
+                >
+              </ng-template>
+              <ng-template [ngIf]="element.estado === 4">
+                <span class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
+                  >Con Error</span
+                >
+              </ng-template>
+            </div>
+            <div class="field-col-12">
+              <button
+                type="button"
+                mat-icon-button
+                color="primary"
+                matTooltip="Consultar detalle."
+                (click)="navegarDetail(element.idProceso)"
+              >
+                <mat-icon>remove_red_eye</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                color="info"
+                matTooltip="Descargar observaciones."
+                (click)="navegarDownload(element.idProceso)"
+                *ngIf="element.estado === 3"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                color="warn"
+                matTooltip="Finalizar proceso."
+                *ngIf="element.estado === 1 || element.estado === 2"
+                (click)="navegarFinish(element.idProceso)"
+              >
+                <mat-icon>thumb_down</mat-icon>
+              </button>
+
+              <!-- <button
+                type="button"
+                mat-icon-button
+                color="primary"
+                matTooltip="Editar registro."
+                *ngIf="element.estado === 1"
+                (click)="navegarFinish(element.idProceso)"
+              >
+                <mat-icon>thumb_down</mat-icon>
+              </button> -->
+              <!-- <button
+                      type="button"
+                      mat-icon-button
+                      color="warn"
+                      tabindex="-1"
+                      (click)="navegarBaja(element.idEspecialidad)"
+                      matTooltip="Inactivar registro."
+                      *ngIf="element.estado === '1'"
+                    >
+                      <mat-icon>thumb_down</mat-icon>
+                    </button> -->
+            </div>
+          </div>
+        </div>
+        <!-- Fin vista estilo "lista" para pantallas pequeñas -->
+        <mat-paginator
+          class="mat-paginator-sticky"
+          [length]="rowsCount"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20, 50]"
+          (page)="search()"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+    <!-- </fieldset> -->
+  </mat-card-content>
+</mat-card>

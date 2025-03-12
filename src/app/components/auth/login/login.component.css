@@ -1,0 +1,60 @@
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #26c6da;
+  padding: 20px;
+}
+
+/* Estilo de la tarjeta */
+.login-card {
+  width: 400px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 250px;
+  /* border-radius: 50%; */
+}
+
+/* Estilo del título */
+.title {
+  /*margin-bottom: 10px;*/
+  font-size: 14px;
+  font-weight: bold;
+  /*color: #333;*/
+}
+
+/* Campos de formulario */
+.full-width {
+  width: 100%;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #f44336;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+/* Botón */
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  width: 100%;
+}

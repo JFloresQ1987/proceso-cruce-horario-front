@@ -1,0 +1,17 @@
+<nav aria-label="breadcrumb" class="breadcrumb-container">
+  <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
+    <a
+      *ngIf="breadcrumb.url; else lastBreadcrumb"
+      [routerLink]="breadcrumb.url"
+      class="breadcrumb-link"
+    >
+      {{ breadcrumb.label }}
+    </a>
+    <ng-template #lastBreadcrumb>
+      <span class="breadcrumb-current">{{ breadcrumb.label }}</span>
+    </ng-template>
+    <mat-icon *ngIf="i < breadcrumbs.length - 1" class="breadcrumb-separator"
+      >chevron_right</mat-icon
+    >
+  </ng-container>
+</nav>

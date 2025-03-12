@@ -1,0 +1,59 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <div class="logo-container">
+      <img src="assets/image/saludpol_login.png" class="logo" />
+    </div>
+    <!-- <mat-card-title class="title"
+      >INICIO DE SESIÓN</mat-card-title
+    > -->
+    <mat-card-content>
+      <form class="login-form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Correo Electrónico</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Ingrese su correo electrónico"
+            maxlength="50"
+            [(ngModel)]="username"
+            name="username"
+            required
+          />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Ingrese su contraseña"
+            maxlength="50"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            tabindex="-1"
+            (click)="togglePasswordVisibility($event)"
+            type="button"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field> -->
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit">
+            <mat-icon>login</mat-icon>
+            Iniciar Sesión
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
