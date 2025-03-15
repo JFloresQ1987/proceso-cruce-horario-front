@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  HOST: 'http://localhost/AlicorpCruceHorasBack/api',
-  HOST_AUTH: 'http://localhost/AlicorpCruceHorasBack/api/auth',
+  HOST: 'http://192.168.18.46/AlicorpCruceHorasBack/api',
+  HOST_AUTH: 'http://192.168.18.46/AlicorpCruceHorasBack/api/auth',
 };
