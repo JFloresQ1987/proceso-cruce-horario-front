@@ -8,7 +8,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.HOST_AUTH}/login`;
+  // private apiUrl = `${environment.HOST_AUTH}/login`;
+  // private apiUrl = `${environment.HOST_AUTH}`;
   // private apiReporte = `${environment.HOST}/reporte/fups`;
   // private apiUrlTest = `${environment.HOST_TEST}/listarUsuarioOracle`;
 
@@ -30,11 +31,15 @@ export class AuthService {
     Password: string
     // recaptchaResponse: string
   ): Observable<any> {
-    return this.http.post<any>(this.apiUrl, {
+    return this.http.post<any>(`${environment.HOST_AUTH}/login/`, {
       Email,
       Password,
       // recaptchaResponse,
     });
+  }
+
+  changePassword(data: { currentPassword: string; newPassword: string }) {
+    return this.http.post(`${environment.HOST_AUTH}/change-password/`, data);
   }
 
   // getDatos(): Observable<any> {

@@ -11,7 +11,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class LoginComponent {
   hide = true;
   username: string = '';
-  password: string = '123';
+  password: string = '';
   // recaptchaResponse: string = '';
   errorMessage: string = '';
 
@@ -24,7 +24,7 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.username.trim() == '' || this.password.trim() == '') {
       // this.errorMessage = 'Correo electrónico o contraseña incorrectos';
-      this.errorMessage = 'Correo electrónico no autorizado';
+      this.errorMessage = 'Correo electrónico o contraseña incorrectos';
       return;
     }
 
@@ -40,7 +40,7 @@ export class LoginComponent {
           this.router.navigate(['/generar-proceso']);
         },
         (error) => {
-          this.errorMessage = 'Correo electrónico no autorizado';
+          this.errorMessage = 'Correo electrónico o contraseña incorrectos';
         }
       );
     // });

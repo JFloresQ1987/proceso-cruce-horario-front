@@ -152,6 +152,11 @@
                   >Con Error</span
                 >
               </ng-template>
+              <ng-template [ngIf]="element.estado === 5">
+                <span class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
+                  >Cancelado</span
+                >
+              </ng-template>
             </td>
           </ng-container>
           <ng-container matColumnDef="accion">
@@ -287,6 +292,11 @@
               <ng-template [ngIf]="element.estado === 4">
                 <span class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
                   >Con Error</span
+                >
+              </ng-template>
+              <ng-template [ngIf]="element.estado === 5">
+                <span class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
+                  >Cancelado</span
                 >
               </ng-template>
             </div>

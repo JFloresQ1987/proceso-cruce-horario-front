@@ -23,12 +23,17 @@ export class UsuarioService extends GenericService<Usuario> {
     );
   }
 
-  changePassword(entidad: UsuarioClave): Observable<UsuarioClave> {
-    return this.http.patch<UsuarioClave>(
-      `${this.url}/change-password/${entidad.passwordActual}/${entidad.passwordNuevo}/${entidad.passwordConfirmar}`,
-      {
-        headers: this.getHeaders(),
-      }
-    );
+  // changePassword(entidad: UsuarioClave): Observable<UsuarioClave> {
+  //   return this.http.patch<UsuarioClave>(
+  //     `${this.url}/change-password/${entidad.passwordActual}/${entidad.passwordNuevo}/${entidad.passwordConfirmar}`,
+  //     {
+  //       headers: this.getHeaders(),
+  //     }
+  //   );
+  // }
+
+  changePassword(data: { currentPassword: string; newPassword: string }) {
+    return this.http.post('/change-password', data);
   }
+  
 }

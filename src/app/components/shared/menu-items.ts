@@ -18,19 +18,19 @@ export interface MenuItem {
 const MENUITEMS = [
   {
     name: 'Proceso',
-    roles: ['ROLE_ADMIN', 'ROLE_DIGITADOR'],
+    roles: ['ROLE_ADMIN', 'ROLE_USER'],
     children: [
       {
         state: 'generar-proceso',
         name: 'Generar Proceso',
-        roles: ['ROLE_ADMIN', 'ROLE_DIGITADOR'],
+        roles: ['ROLE_ADMIN', 'ROLE_USER'],
         type: 'link',
         icon: 'category',
       },
       {
         state: 'ver-proceso',
         name: 'Ver Proceso',
-        roles: ['ROLE_ADMIN', 'ROLE_DIGITADOR'],
+        roles: ['ROLE_ADMIN', 'ROLE_USER'],
         type: 'link',
         icon: 'format_list_numbered',
       },
