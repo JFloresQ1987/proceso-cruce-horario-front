@@ -1,0 +1,84 @@
+<form [formGroup]="form" (submit)="save()">
+  <div class="example-container">
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>{{ title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <fieldset>
+          <legend>Datos Generales</legend>
+          <div class="form-grid">
+            <mat-form-field
+              appearance="fill"
+              class="field-col-12"
+              hintLabel="Máximo 150 caracteres"
+            >
+              <mat-label>Nombres y Apellidos</mat-label>
+              <input
+                #inputNombreCompleto
+                matInput
+                formControlName="nombreCompleto"
+                maxlength="150"
+              />
+              <mat-hint align="end">
+                {{ inputNombreCompleto.value?.length || 0 }}/150
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field
+              appearance="fill"
+              class="field-col-12"
+              hintLabel="Máximo 150 caracteres"
+            >
+              <mat-label>Correo Electrónico</mat-label>
+              <input
+                #inputCorreoElectronico
+                matInput
+                formControlName="correoElectronico"
+                maxlength="150"
+              />
+              <mat-hint align="end">
+                {{ inputCorreoElectronico.value?.length || 0 }}/150
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="field-col-12">
+              <mat-label>Roles</mat-label>
+              <mat-select
+                formControlName="roles"
+                placeholder="--- Seleccionar ---"
+                multiple
+              >
+                <mat-option *ngFor="let rol of roles" [value]="rol.idRol">
+                  {{ rol.descripcion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </fieldset>
+        <div style="text-align: right; margin-top: 10px">
+          <button
+            mat-button
+            mat-raised-button
+            type="button"
+            color="primary"
+            matTooltip="Cancelar registro."
+            style="margin-right: 15px"
+            (click)="cancel()"
+          >
+            <mat-icon>cancel</mat-icon>
+            Cancelar
+          </button>
+          <button
+            mat-button
+            mat-raised-button
+            type="submit"
+            color="warn"
+            matTooltip="Guardar registro."
+          >
+            <mat-icon>save</mat-icon>
+            Guardar
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</form>

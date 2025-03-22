@@ -1,1 +1,299 @@
-<p>usuario works!</p>
+<router-outlet></router-outlet>
+<div [hidden]="checkChildren()">
+  <div class="example-container">
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Gestión de Usuario</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <fieldset>
+          <legend>Criterios de Búsqueda</legend>
+          <div class="form-grid">
+            <mat-form-field
+              appearance="fill"
+              class="field-col-9"
+              hintLabel="Máximo 150 caracteres"
+            >
+              <mat-label>Nombres y Apellidos</mat-label>
+              <input
+                #input
+                matInput
+                [(ngModel)]="nombreCompleto"
+                maxlength="150"
+                (keydown.enter)="search()"
+                autofocus
+              />
+              <mat-hint align="end">
+                {{ input.value?.length || 0 }}/150
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="field-col-3">
+              <mat-label>Estado</mat-label>
+              <mat-select [(ngModel)]="estado">
+                <mat-option value="">Todos</mat-option>
+                <mat-option value="1">Activo</mat-option>
+                <mat-option value="0">Inactivo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div style="text-align: left; margin-top: 20px">
+            <button
+              type="button"
+              mat-raised-button
+              color="primary"
+              (click)="search()"
+              matTooltip="Buscar"
+              matTooltipPosition="above"
+            >
+              <mat-icon>search</mat-icon>
+              Buscar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              color="primary"
+              style="margin-left: 15px"
+              (click)="clear()"
+              matTooltip="Limpiar"
+              matTooltipPosition="above"
+            >
+              <mat-icon>cached</mat-icon>
+              Limpiar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              color="warn"
+              style="margin-left: 15px"
+              matTooltip="Nuevo"
+              matTooltipPosition="above"
+              (click)="navegarNuevo()"
+            >
+              <mat-icon>note_add</mat-icon>
+              Nuevo
+            </button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Listado de Resultados</legend>
+
+          <div class="table-container">
+            <div class="table-wrapper custom-table">
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                class="mat-elevation-z8 large-table"
+                *ngIf="!isSmallScreen"
+              >
+                <ng-container matColumnDef="numero">
+                  <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                    Nro
+                  </th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{ i + 1 + paginator.pageIndex * paginator.pageSize }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="nombreCompleto">
+                  <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                    Nombres y Apellidos
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.nombreCompleto }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="correoElectronico">
+                  <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                    Correo Electrónico
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.correoElectronico }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="fechaRegistro">
+                  <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                    Fecha Registro
+                  </th>
+                  <td mat-cell class="center" *matCellDef="let element">
+                    {{ element.fechaRegistro | date : "dd/MM/yyyy HH:mm:ss" }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    class="mat-header-cell"
+                    style="min-width: 130px"
+                  >
+                    Estado
+                  </th>
+                  <td mat-cell class="center" *matCellDef="let element">
+                    <ng-template [ngIf]="element.esVigente">
+                      <span
+                        class="bg-success text-white rounded font-10 p-l-5 p-r-5"
+                        >Activo</span
+                      >
+                    </ng-template>
+                    <ng-template [ngIf]="!element.esVigente">
+                      <span
+                        class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
+                        >Inactivo</span
+                      >
+                    </ng-template>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="accion">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    class="mat-header-cell center"
+                    style="min-width: 180px"
+                  >
+                    Acción
+                  </th>
+                  <td
+                    mat-cell
+                    class="center"
+                    *matCellDef="let element; let i = index"
+                  >
+                    <button
+                      type="button"
+                      mat-icon-button
+                      color="primary"
+                      matTooltip="Editar registro."                      
+                      (click)="navegarEditar(element.idUsuario)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                      type="button"
+                      mat-icon-button
+                      style="color: orange"
+                      matTooltip="Resetear clave."                      
+                      (click)="navegarEditar(element.idUsuario)"
+                    >
+                      <mat-icon>vpn_key</mat-icon>
+                    </button>
+                    <button
+                      type="button"
+                      mat-icon-button
+                      color="warn"
+                      tabindex="-1"
+                      (click)="navegarBaja(element.idUsuario)"
+                      matTooltip="Inactivar registro."
+                      *ngIf="element.esVigente"
+                    >
+                      <mat-icon>thumb_down_alt</mat-icon>
+                    </button>
+                    <button
+                      type="button"
+                      mat-icon-button
+                      style="color: green"
+                      tabindex="-1"
+                      (click)="navegarBaja(element.idUsuario)"
+                      matTooltip="Activar registro."
+                      *ngIf="!element.esVigente"
+                    >
+                      <mat-icon>thumb_up_alt</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr class="mat-row" *matNoDataRow>
+                  <td
+                    class="mat-cell no-data-cell"
+                    colspan="7"
+                    style="height: 50px"
+                  >
+                    No hay registros encontrados.
+                  </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                  class="mat-row"
+                ></tr>
+              </table>
+              <!-- Inicio vista estilo "lista" para pantallas pequeñas -->
+              <div class="small-table" *ngIf="isSmallScreen">
+                <div
+                  class="row"
+                  *ngFor="let element of dataSource.data; let i = index"
+                >
+                  <div class="field-col-12">
+                    <span class="span">Nro: </span
+                    ><span>{{
+                      i + 1 + paginator.pageIndex * paginator.pageSize
+                    }}</span>
+                  </div>
+                  <div class="field-col-12">
+                    <span class="span">Correo Electrónico: </span
+                    ><span>{{ element.correoElectronico }}</span>
+                  </div>
+                  <div class="field-col-12">
+                    <span class="span">Nombres y Apellidos: </span
+                    ><span>{{ element.nombreCompleto }}</span>
+                  </div>
+                  <div class="field-col-12">
+                    <span class="span">Fecha Registro: </span
+                    ><span>{{
+                      element.fechaRegistro | date : "dd/MM/yyyy"
+                    }}</span>
+                  </div>
+                  <div class="field-col-12">
+                    <span class="span">Estado: </span
+                    ><ng-template [ngIf]="element.esVigente">
+                      <span
+                        class="bg-success text-white rounded font-10 p-l-5 p-r-5"
+                        >Activo</span
+                      >
+                    </ng-template>
+                    <ng-template [ngIf]="!element.esVigente">
+                      <span
+                        class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
+                        >Inactivo</span
+                      >
+                    </ng-template>
+                  </div>
+                  <div class="field-col-12">
+                    <button
+                      type="button"
+                      mat-icon-button
+                      color="primary"
+                      matTooltip="Editar registro."
+                      *ngIf="element.esVigente"
+                      (click)="navegarEditar(element.idUsuario)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                      type="button"
+                      mat-icon-button
+                      color="warn"
+                      tabindex="-1"
+                      (click)="navegarBaja(element.idUsuario)"
+                      matTooltip="Inactivar registro."
+                      *ngIf="element.esVigente"
+                    >
+                      <mat-icon>thumb_down_alt</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Fin vista estilo "lista" para pantallas pequeñas -->
+              <mat-paginator
+                class="mat-paginator-sticky"
+                [length]="rowsCount"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 20, 50]"
+                (page)="search()"
+                showFirstLastButtons
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </fieldset>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

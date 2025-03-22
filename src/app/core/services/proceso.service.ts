@@ -15,7 +15,7 @@ export class ProcesoService {
 
   closeProcess(id: number): Observable<any> {
     // return this.http.put(`${environment.HOST}/proceso/terminar/` + id, {});
-    return this.http.post(`${environment.HOST}/proceso/terminar/` + id, {});
+    return this.http.patch(`${environment.HOST}/proceso/terminar/` + id, {});
   }
 
   public findDetailsByLoad(id: number): Observable<boolean> {

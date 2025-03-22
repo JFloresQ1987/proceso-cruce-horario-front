@@ -36,6 +36,32 @@ const MENUITEMS = [
       },
     ],
   },
+  {
+    name: 'Seguridad',
+    roles: ['ROLE_ADMIN'],
+    children: [
+      {
+        state: 'usuario',
+        name: 'Gestión de Usuario',
+        roles: ['ROLE_ADMIN'],
+        type: 'link',
+        icon: 'supervisor_account',
+      },
+    ],
+  },
+  {
+    name: 'Configuración',
+    roles: ['ROLE_ADMIN'],
+    children: [
+      {
+        state: 'tolerancia',
+        name: 'Tolerancia',
+        roles: ['ROLE_ADMIN'],
+        type: 'link',
+        icon: 'access_time',
+      },
+    ],
+  },
 ];
 
 @Injectable()

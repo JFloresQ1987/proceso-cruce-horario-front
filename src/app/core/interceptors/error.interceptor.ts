@@ -31,6 +31,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         //   this.utilsService.warning({
         //     message: error.error.message,
         //   });
+        if (error.status === 409)
+          this.utilsService.warning({
+            message: error.error.message,
+          });
         if (error.status === 422) {
           const errorMessages: string[] = error.error.errors.map(
             (error) => error.Observation

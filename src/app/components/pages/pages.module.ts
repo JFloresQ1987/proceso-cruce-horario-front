@@ -12,6 +12,7 @@ import { GenerarProcesoComponent } from './proceso/generar-proceso/generar-proce
 import { UsuarioComponent } from './seguridad/usuario/usuario.component';
 import { ToleranciaComponent } from './configuracion/tolerancia/tolerancia.component';
 import { CambiarClaveComponent } from './seguridad/cambiar-clave/cambiar-clave.component';
+import { UsuarioFormComponent } from './seguridad/usuario/usuario-form/usuario-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CambiarClaveComponent } from './seguridad/cambiar-clave/cambiar-clave.c
     UsuarioComponent,
     ToleranciaComponent,
     CambiarClaveComponent,
+    UsuarioFormComponent,
   ],
   exports: [PagesComponent],
   imports: [
