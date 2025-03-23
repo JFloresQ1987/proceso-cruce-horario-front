@@ -1,1 +1,181 @@
-<p>tolerancia works!</p>
+<!-- <form [formGroup]="form" (submit)="save()"> -->
+<div class="example-container">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Tolerancia</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <fieldset>
+        <legend>Parámetros</legend>
+        <div class="form-grid">
+          @if(existeParametroToleranciaInicioDesde){
+          <mat-form-field
+            appearance="fill"
+            class="field-col-8"
+            hintLabel="Máximo 5 dígitos"
+          >
+            <mat-label>{{
+              descripcionParametroToleranciaInicioDesde
+            }}</mat-label>
+            <input
+              #inputParametroToleranciaInicioDesde
+              matInput
+              [(ngModel)]="valorParametroToleranciaInicioDesde"
+              (input)="inputOnlyNumber($event)"
+              maxlength="5"
+            />
+            <mat-hint align="end">
+              {{ inputParametroToleranciaInicioDesde.value?.length || 0 }}/5
+            </mat-hint>
+          </mat-form-field>
+          <div appearance="fill" class="field-col-4">
+            <button
+              type="button"
+              mat-icon-button
+              color="primary"
+              matTooltip="Guardar parámetro."
+              (click)="
+                save(
+                  idParametroToleranciaInicioDesde,
+                  valorParametroToleranciaInicioDesde
+                )
+              "
+            >
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+          } @if(existeParametroToleranciaInicioHasta){
+          <mat-form-field
+            appearance="fill"
+            class="field-col-8"
+            hintLabel="Máximo 5 dígitos"
+          >
+            <mat-label>{{
+              descripcionParametroToleranciaInicioHasta
+            }}</mat-label>
+            <input
+              #inputParametroToleranciaInicioHasta
+              matInput
+              [(ngModel)]="valorParametroToleranciaInicioHasta"
+              (input)="inputOnlyNumber($event)"
+              maxlength="5"
+            />
+            <mat-hint align="end">
+              {{ inputParametroToleranciaInicioHasta.value?.length || 0 }}/5
+            </mat-hint>
+          </mat-form-field>
+          <div appearance="fill" class="field-col-4">
+            <button
+              type="button"
+              mat-icon-button
+              color="primary"
+              matTooltip="Guardar parámetro."
+              (click)="
+                save(
+                  idParametroToleranciaInicioHasta,
+                  valorParametroToleranciaInicioHasta
+                )
+              "
+            >
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+          } @if(existeParametroToleranciaFinDesde){
+          <mat-form-field
+            appearance="fill"
+            class="field-col-8"
+            hintLabel="Máximo 5 dígitos"
+          >
+            <mat-label>{{ descripcionParametroToleranciaFinDesde }}</mat-label>
+            <input
+              #inputParametroToleranciaFinDesde
+              matInput
+              [(ngModel)]="valorParametroToleranciaFinDesde"
+              (input)="inputOnlyNumber($event)"
+              maxlength="5"
+            />
+            <mat-hint align="end">
+              {{ inputParametroToleranciaFinDesde.value?.length || 0 }}/5
+            </mat-hint>
+          </mat-form-field>
+          <div appearance="fill" class="field-col-4">
+            <button
+              type="button"
+              mat-icon-button
+              color="primary"
+              matTooltip="Guardar parámetro."
+              (click)="
+                save(
+                  idParametroToleranciaFinDesde,
+                  valorParametroToleranciaFinDesde
+                )
+              "
+            >
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+          } @if(existeParametroToleranciaFinHasta){
+          <mat-form-field
+            appearance="fill"
+            class="field-col-8"
+            hintLabel="Máximo 5 dígitos"
+          >
+            <mat-label>{{ descripcionParametroToleranciaFinHasta }}</mat-label>
+            <input
+              #inputParametroToleranciaFinHasta
+              matInput
+              [(ngModel)]="valorParametroToleranciaFinHasta"
+              (input)="inputOnlyNumber($event)"
+              maxlength="5"
+            />
+            <mat-hint align="end">
+              {{ inputParametroToleranciaFinHasta.value?.length || 0 }}/5
+            </mat-hint>
+          </mat-form-field>
+          <div appearance="fill" class="field-col-4">
+            <button
+              type="button"
+              mat-icon-button
+              color="primary"
+              matTooltip="Guardar parámetro."
+              (click)="
+                save(
+                  idParametroToleranciaFinHasta,
+                  valorParametroToleranciaFinHasta
+                )
+              "
+            >
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+          }
+        </div>
+      </fieldset>
+      <!-- <div style="text-align: right; margin-top: 10px">
+            <button
+              mat-button
+              mat-raised-button
+              type="button"
+              color="primary"
+              matTooltip="Cancelar registro."
+              style="margin-right: 15px"
+              (click)="cancel()"
+            >
+              <mat-icon>cancel</mat-icon>
+              Cancelar
+            </button>
+            <button
+              mat-button
+              mat-raised-button
+              type="submit"
+              color="warn"
+              matTooltip="Guardar registro."
+            >
+              <mat-icon>save</mat-icon>
+              Guardar
+            </button>
+          </div> -->
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- </form> -->

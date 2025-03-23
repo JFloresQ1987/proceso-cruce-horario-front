@@ -54,12 +54,19 @@ const MENUITEMS = [
     roles: ['ROLE_ADMIN'],
     children: [
       {
+        state: 'absentismo',
+        name: 'Absentismo',
+        roles: ['ROLE_ADMIN'],
+        type: 'link',
+        icon: 'list_alt',
+      },
+      {
         state: 'tolerancia',
         name: 'Tolerancia',
         roles: ['ROLE_ADMIN'],
         type: 'link',
         icon: 'access_time',
-      },
+      },      
     ],
   },
 ];

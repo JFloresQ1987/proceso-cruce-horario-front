@@ -1,5 +1,5 @@
 export interface RolDto {
   idRol: number;
-  codigoRol: string;
+  codigo: string;
   descripcion: string;
 }

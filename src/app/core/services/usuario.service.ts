@@ -9,32 +9,36 @@ import { UsuarioStatusDto } from '../interfaces/usuario-status-dto';
 import { UsuarioResetDto } from '../interfaces/usuario-reset-dto';
 import { UsuarioCreateDto } from '../interfaces/usuario-create-dto';
 import { UsuarioUpdateDto } from '../interfaces/usuario-update-dto';
+import { PaginationParams } from '../interfaces/PaginationParams';
+import { PaginacionResponse } from '../interfaces/PaginacionResponse';
+import { UsuarioFilterDto } from '../interfaces/usuario-filter-dto';
+import { UsuarioDto } from '../interfaces/usuario-dto';
 
-export interface UsuarioDto {
-  idUsuario: number;
-  nombreCompleto: string;
-  correoElectronico: string;
-  fechaRegistro: string;
-  esVigente: boolean;
-}
+// export interface UsuarioDto {
+//   idUsuario: number;
+//   nombreCompleto: string;
+//   correoElectronico: string;
+//   fechaRegistro: string;
+//   esVigente: boolean;
+// }
 
-export interface PaginacionResponse<T> {
-  totalRegistros: number;
-  paginaActual: number;
-  tamañoPagina: number;
-  totalPaginas: number;
-  datos: T[];
-}
+// export interface PaginacionResponse<T> {
+//   totalRegistros: number;
+//   paginaActual: number;
+//   tamañoPagina: number;
+//   totalPaginas: number;
+//   datos: T[];
+// }
 
-export interface UsuarioFilterDto extends PaginationParams {
-  nombreCompleto?: string;
-  esVigente?: string;
-}
+// export interface UsuarioFilterDto extends PaginationParams {
+//   nombreCompleto?: string;
+//   esVigente?: string;
+// }
 
-export interface PaginationParams {
-  page: number;
-  size: number;
-}
+// export interface PaginationParams {
+//   page: number;
+//   size: number;
+// }
 
 @Injectable({
   providedIn: 'root',

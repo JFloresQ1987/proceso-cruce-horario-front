@@ -159,7 +159,7 @@
                       type="button"
                       mat-icon-button
                       color="primary"
-                      matTooltip="Editar registro."                      
+                      matTooltip="Editar registro."
                       (click)="navegarEditar(element.idUsuario)"
                     >
                       <mat-icon>edit</mat-icon>
@@ -168,8 +168,8 @@
                       type="button"
                       mat-icon-button
                       style="color: orange"
-                      matTooltip="Resetear clave."                      
-                      (click)="navegarEditar(element.idUsuario)"
+                      matTooltip="Resetear clave."
+                      (click)="navegarResetear(element.idUsuario)"
                     >
                       <mat-icon>vpn_key</mat-icon>
                     </button>
@@ -178,7 +178,7 @@
                       mat-icon-button
                       color="warn"
                       tabindex="-1"
-                      (click)="navegarBaja(element.idUsuario)"
+                      (click)="navegarAltaBaja(element.idUsuario, false)"
                       matTooltip="Inactivar registro."
                       *ngIf="element.esVigente"
                     >
@@ -189,7 +189,7 @@
                       mat-icon-button
                       style="color: green"
                       tabindex="-1"
-                      (click)="navegarBaja(element.idUsuario)"
+                      (click)="navegarAltaBaja(element.idUsuario, true)"
                       matTooltip="Activar registro."
                       *ngIf="!element.esVigente"
                     >
@@ -271,7 +271,7 @@
                       mat-icon-button
                       color="warn"
                       tabindex="-1"
-                      (click)="navegarBaja(element.idUsuario)"
+                      (click)="navegarAltaBaja(element.idUsuario, false)"
                       matTooltip="Inactivar registro."
                       *ngIf="element.esVigente"
                     >

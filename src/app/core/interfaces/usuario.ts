@@ -1,4 +1,6 @@
-import { PaginationParams } from '../services/generic.service';
+// import { PaginationParams } from '../services/generic.service';
+
+import { PaginationParams } from "./PaginationParams";
 
 export interface Usuario extends PaginationParams {
   idUsuario?: number;

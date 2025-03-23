@@ -1,4 +1,4 @@
-import { PaginationParams } from '../services/generic.service';
+import { PaginationParams } from "./PaginationParams";
 
 export interface Proceso extends PaginationParams {
   idProceso?: number;

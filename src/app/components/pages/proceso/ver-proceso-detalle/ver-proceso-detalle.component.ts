@@ -31,7 +31,7 @@ export class VerProcesoDetalleComponent /*implements OnInit*/ {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(
-    private dialogRef: MatDialogRef<VerProcesoDetalleComponent>,
+    // private dialogRef: MatDialogRef<VerProcesoDetalleComponent>,
     // private especialidadService: EspecialidadService
     private procesoService: ProcesoService
   ) {}

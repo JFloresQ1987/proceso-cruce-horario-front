@@ -8,6 +8,7 @@ import { CambiarClaveComponent } from './seguridad/cambiar-clave/cambiar-clave.c
 import { UsuarioComponent } from './seguridad/usuario/usuario.component';
 import { UsuarioFormComponent } from './seguridad/usuario/usuario-form/usuario-form.component';
 import { ToleranciaComponent } from './configuracion/tolerancia/tolerancia.component';
+import { AbsentismoComponent } from './configuracion/absentismo/absentismo.component';
 
 const childRoutes: Routes = [
   {
@@ -72,10 +73,19 @@ const childRoutes: Routes = [
   {
     path: 'tolerancia',
     component: ToleranciaComponent,
-    canActivate: [authGuard ,roleGuard],
+    canActivate: [authGuard, roleGuard],
     data: {
       roles: ['ROLE_ADMIN'],
       breadcrumb: 'Configuración > Tolerancia',
+    },
+  },
+  {
+    path: 'absentismo',
+    component: AbsentismoComponent,
+    canActivate: [authGuard, roleGuard],
+    data: {
+      roles: ['ROLE_ADMIN'],
+      breadcrumb: 'Configuración > Absentismo',
     },
   },
 ];

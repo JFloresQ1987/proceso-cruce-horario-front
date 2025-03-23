@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { PaginationParams } from '../interfaces/PaginationParams';
 
-export interface PaginationParams {
-  page?: number;
-  size?: number;
-  // sortBy: string;
-  // sortDir: string;
-}
+// export interface PaginationParams {
+//   page?: number;
+//   size?: number;
+//   // sortBy: string;
+//   // sortDir: string;
+// }
 
 @Injectable({
   providedIn: 'root',

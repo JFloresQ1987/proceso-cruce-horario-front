@@ -1,0 +1,71 @@
+<div class="example-container">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Nuevo Registro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-grid">
+        <mat-form-field
+          appearance="fill"
+          class="field-col-12"
+          hintLabel="Máximo 5 dígitos"
+        >
+          <mat-label>Código</mat-label>
+          <input
+            #inputCodigo="ngModel"
+            matInput
+            [(ngModel)]="codigo"
+            maxlength="5"
+            (input)="inputOnlyNumber($event)"
+            required
+          />
+          <mat-hint align="end">
+            {{ inputCodigo.value?.length || 0 }}/5
+          </mat-hint>
+          <mat-error *ngIf="inputCodigo.invalid && inputCodigo.touched">
+            El código es obligatorio.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field
+          appearance="fill"
+          class="field-col-12"
+          hintLabel="Máximo 50 caracteres"
+        >
+          <mat-label>Descripción</mat-label>
+          <input
+            #inputDescripcion
+            matInput
+            [(ngModel)]="descripcion"
+            maxlength="50"
+          />
+          <mat-hint align="end">
+            {{ inputDescripcion.value?.length || 0 }}/50
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- <mat-dialog-actions align="end" class="dialog-actions">
+    <button
+      mat-button
+      mat-raised-button
+      mat-dialog-close
+      class="cancel-button"
+      color="primary"
+      matTooltip="Cancelar búsqueda."
+    >
+      Cancelar
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-dialog-actions> -->
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">
+    <mat-icon>cancel</mat-icon>
+    Cancelar
+  </button>
+  <button mat-raised-button color="primary" (click)="continue()">
+    <mat-icon>save</mat-icon>
+    Guardar
+  </button>
+</mat-dialog-actions>
