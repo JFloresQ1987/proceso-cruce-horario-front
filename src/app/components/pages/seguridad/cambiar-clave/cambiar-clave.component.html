@@ -6,8 +6,8 @@
       </mat-card-header>
       <mat-card-content>
         <div class="form-grid">
-          <div class="field-col-4"></div>
-          <div class="field-col-4">
+          <div class="field-col-3"></div>
+          <div class="field-col-6">
             <fieldset>
               <legend>Datos Generales</legend>
 
@@ -87,16 +87,19 @@
               </mat-form-field>
               <mat-error
                 *ngIf="form.get('passwordNuevo')?.hasError('weakPassword')"
-                >• La contraseña debe tener entre 8 y 50 caracteres, incluir al
+              >
+                • La contraseña debe tener entre 8 y 50 caracteres, incluir al
                 menos una mayúscula, una minúscula, un número y un carácter
-                especial.
+                especial permitido: ¡ ! &#64; # $ % ^ &amp; * ( ) _ + \ - = [ ]
+                &#123; &#125; ; &#39; : &quot; | , . &lt; &gt; &#47; &#191;
+                &#63;
               </mat-error>
               <mat-error *ngIf="form.hasError('passwordsMismatch')"
-                >• Las contraseñas no coinciden.
+                >• Las contraseñas no coinciden
               </mat-error>
             </fieldset>
           </div>
-          <div class="field-col-4"></div>
+          <div class="field-col-3"></div>
         </div>
         <div style="text-align: center; margin-top: 10px">
           <button

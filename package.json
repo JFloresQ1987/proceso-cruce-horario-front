@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration=production --base-href /cruce-horas-web/",
+    "build": "ng build --configuration=production --base-href /AlicorpCruceHorasFront/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
