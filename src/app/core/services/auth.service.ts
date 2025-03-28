@@ -38,9 +38,9 @@ export class AuthService {
     });
   }
 
-  changePassword(data: { currentPassword: string; newPassword: string }) {
-    return this.http.post(`${environment.HOST_AUTH}/change-password/`, data);
-  }
+  // changePassword(data: { currentPassword: string; newPassword: string }) {
+  //   return this.http.post(`${environment.HOST_AUTH}/change-password/`, data);
+  // }
 
   // getDatos(): Observable<any> {
   //   return this.http.get<any>(this.apiUrlTest);

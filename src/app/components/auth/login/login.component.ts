@@ -17,9 +17,8 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) // private recaptchaV3Service: ReCaptchaV3Service
-  {}
+    private router: Router // private recaptchaV3Service: ReCaptchaV3Service
+  ) {}
 
   onSubmit(): void {
     if (this.username.trim() == '' || this.password.trim() == '') {
@@ -34,9 +33,9 @@ export class LoginComponent {
       .login(this.username, this.password /*, this.recaptchaResponse*/)
       .subscribe(
         (result) => {
-          console.log(result.token);
+          // console.log(result.token);
           this.errorMessage = '';
-          this.authService.setToken(result.token);
+          this.authService.setToken(result.data);
           this.router.navigate(['/generar-proceso']);
         },
         (error) => {

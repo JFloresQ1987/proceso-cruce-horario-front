@@ -10,6 +10,7 @@ import { ProcesoService } from '../../../../core/services/proceso.service';
 import { Proceso } from '../../../../core/interfaces/proceso';
 import { MatDialog } from '@angular/material/dialog';
 import { VerProcesoDetalleComponent } from '../ver-proceso-detalle/ver-proceso-detalle.component';
+import { ReporteService } from '../../../../core/services/reporte.service';
 
 @Component({
   selector: 'app-ver-proceso',
@@ -50,6 +51,7 @@ export class VerProcesoComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private procesoService: ProcesoService,
+    private reporteService: ReporteService,
     private dialog: MatDialog,
     private utilsService: UtilsService
   ) {
@@ -88,7 +90,7 @@ export class VerProcesoComponent implements OnInit {
     this.procesoService
       .findProcessPaginado(this.pageIndex, this.pageSize)
       .subscribe((result: any) => {
-        const data = result;
+        const data = result.data;
         // this.dataSource = new MatTableDataSource(data.content);
         // this.rowsCount = data.totalElements;
         this.dataSource = new MatTableDataSource(data.items);
@@ -160,7 +162,7 @@ export class VerProcesoComponent implements OnInit {
       message: '¿Está seguro de descargar las observaciones del proceso?',
     });
     if (confirm) {
-      this.procesoService.donwloadProcessObservations(id);
+      this.reporteService.donwloadProcessObservations(id);
       // this.procesoService.saveProcess().subscribe((result: any) => {
       //   console.log(result);
 
@@ -180,7 +182,7 @@ export class VerProcesoComponent implements OnInit {
       message: '¿Está seguro de descargar el reporte resumido?',
     });
     if (confirm) {
-      this.procesoService.donwloadProcessResumeReport(id);
+      this.reporteService.donwloadProcessResumeReport(id);
     }
   }
 
@@ -189,7 +191,7 @@ export class VerProcesoComponent implements OnInit {
       message: '¿Está seguro de descargar el reporte detallado?',
     });
     if (confirm) {
-      this.procesoService.donwloadProcessFullReport(id);
+      this.reporteService.donwloadProcessFullReport(id);
     }
   }
 

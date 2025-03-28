@@ -14,6 +14,13 @@ export const enum EstadoEnum {
   ACTIVO = '1',
 }
 
+export const enum GrupoTipoAbsentismoEnum {
+  SIN_GRUPO = '0',
+  GRUPO_1 = '1',
+  GRUPO_2 = '2',
+  GRUPO_3 = '3',
+}
+
 export const enum ParametroEnum {
   HHEE_TOLERANCIA_INICIO_DESDE = 'HHEE_TOLERANCIA_INICIO_DESDE',
   HHEE_TOLERANCIA_INICIO_HASTA = 'HHEE_TOLERANCIA_INICIO_HASTA',

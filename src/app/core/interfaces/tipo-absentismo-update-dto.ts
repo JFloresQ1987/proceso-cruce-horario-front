@@ -1,6 +1,11 @@
 export interface TipoAbsentismoUpdateDto {
   idMaestroTipoAbsentismo?: number;
-  perteneceGrupo1?: boolean;
-  perteneceGrupo2?: boolean;
-  perteneceGrupo3?: boolean;
+  codigo?: number;
+  descripcion?: string;
 }
+// export interface TipoAbsentismoUpdateDto {
+//   idMaestroTipoAbsentismo?: number;
+//   perteneceGrupo1?: boolean;
+//   perteneceGrupo2?: boolean;
+//   perteneceGrupo3?: boolean;
+// }

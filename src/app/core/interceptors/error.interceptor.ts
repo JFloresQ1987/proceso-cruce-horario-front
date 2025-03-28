@@ -31,14 +31,17 @@ export class ErrorInterceptor implements HttpInterceptor {
         //   this.utilsService.warning({
         //     message: error.error.message,
         //   });
-        if (error.status === 409)
-          this.utilsService.warning({
-            message: error.error.message,
-          });
-        if (error.status === 422) {
-          const errorMessages: string[] = error.error.errors.map(
-            (error) => error.Observation
-          );
+        if (
+          error.status === 400 ||
+          error.status === 404 ||
+          error.status === 409 ||
+          error.status === 422
+        ) {
+          console.log(error);
+          // const errorMessages: string[] = error.error.errors.map(
+          //   (error) => error.Observation
+          // );
+          const errorMessages: string[] = error.error.messages;
           // const errorMessages: string[] = [];
           // errorMessages.push(`<code>Código Dx</code>: es obligatorio.`);
           if (errorMessages.length > 0) {
@@ -47,13 +50,29 @@ export class ErrorInterceptor implements HttpInterceptor {
             });
           }
         }
-        // this.utilsService.warning({
-        //   message: error.error.message,
-        // });
-        // if (error.status === 400)
+        // if (error.status === 409)
         //   this.utilsService.warning({
         //     message: error.error.message,
         //   });
+        // if (error.status === 422) {
+        //   const errorMessages: string[] = error.error.errors.map(
+        //     (error) => error.Observation
+        //   );
+        //   // const errorMessages: string[] = [];
+        //   // errorMessages.push(`<code>Código Dx</code>: es obligatorio.`);
+        //   if (errorMessages.length > 0) {
+        //     this.utilsService.warning({
+        //       message: errorMessages.join('<br/>'),
+        //     });
+        //   }
+        // }
+        // // this.utilsService.warning({
+        // //   message: error.error.message,
+        // // });
+        // // if (error.status === 400)
+        // //   this.utilsService.warning({
+        // //     message: error.error.message,
+        // //   });
         else if (error.status === 500) this.utilsService.error();
 
         return throwError(() => error);

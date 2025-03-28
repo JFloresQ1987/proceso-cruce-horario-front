@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GenericService } from './generic.service';
+// import { GenericService } from './generic.service';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -16,15 +16,13 @@ import { ConfiguracionUpdateDto } from '../interfaces/configuracion-update-dto';
 @Injectable({
   providedIn: 'root',
 })
-// export class UsuarioService extends GenericService<Usuario> {
-//   constructor(protected override http: HttpClient) {
-//     super(http, `${environment.HOST}/usuario`);
-//   }
 export class ConfiguracionService {
-  constructor(private http: HttpClient) {}  
+  constructor(private http: HttpClient) {}
 
   listar() {
-    return this.http.get<ConfiguracionDto[]>(`${environment.HOST}/configuracion/listar`);
+    return this.http.get<ConfiguracionDto[]>(
+      `${environment.HOST}/configuracion/listar`
+    );
   }
 
   actualizar(dto: ConfiguracionUpdateDto) {

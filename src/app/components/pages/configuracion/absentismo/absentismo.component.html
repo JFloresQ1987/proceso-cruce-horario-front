@@ -25,12 +25,22 @@
             />
             <mat-hint align="end"> {{ input.value?.length || 0 }}/50 </mat-hint>
           </mat-form-field>
-          <mat-form-field appearance="fill" class="field-col-3">
+          <!-- <mat-form-field appearance="fill" class="field-col-3">
             <mat-label>Estado</mat-label>
             <mat-select [(ngModel)]="estado">
               <mat-option value="">Todos</mat-option>
               <mat-option value="1">Activo</mat-option>
               <mat-option value="0">Inactivo</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+          <mat-form-field appearance="fill" class="field-col-3">
+            <mat-label>Grupo</mat-label>
+            <mat-select [(ngModel)]="grupoTipoAbsentismo">
+              <mat-option value="">Todos</mat-option>
+              <mat-option value="0">Sin grupo</mat-option>
+              <mat-option value="1">Por Horas (Grupo 1)</mat-option>
+              <mat-option value="2">Por Días (Grupo 2)</mat-option>
+              <mat-option value="3">Grupo 3</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -109,7 +119,7 @@
               </ng-container>
               <ng-container matColumnDef="perteneceGrupo1">
                 <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                  Grupo 1
+                  Por Horas (Grupo 1)
                 </th>
                 <td mat-cell class="center" *matCellDef="let element">
                   <button
@@ -142,7 +152,7 @@
               </ng-container>
               <ng-container matColumnDef="perteneceGrupo2">
                 <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                  Grupo 2
+                  Por Días (Grupo 2)
                 </th>
                 <td mat-cell class="center" *matCellDef="let element">
                   <button
@@ -230,62 +240,31 @@
                   </ng-template>
                 </td>
               </ng-container>
-              <!-- <ng-container matColumnDef="accion">
-                  <th
-                    mat-header-cell
-                    *matHeaderCellDef
-                    class="mat-header-cell center"
-                    style="min-width: 180px"
+              <ng-container matColumnDef="accion">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="mat-header-cell center"
+                  style="min-width: 80px"
+                >
+                  Acción
+                </th>
+                <td
+                  mat-cell
+                  class="center"
+                  *matCellDef="let element; let i = index"
+                >
+                  <button
+                    type="button"
+                    mat-icon-button
+                    color="primary"
+                    matTooltip="Editar registro."
+                    (click)="navegarEditar(element)"
                   >
-                    Acción
-                  </th>
-                  <td
-                    mat-cell
-                    class="center"
-                    *matCellDef="let element; let i = index"
-                  >
-                    <button
-                      type="button"
-                      mat-icon-button
-                      color="primary"
-                      matTooltip="Editar registro."
-                      (click)="navegarEditar(element.idUsuario)"
-                    >
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    <button
-                      type="button"
-                      mat-icon-button
-                      style="color: orange"
-                      matTooltip="Resetear clave."
-                      (click)="navegarResetear(element.idUsuario)"
-                    >
-                      <mat-icon>vpn_key</mat-icon>
-                    </button>
-                    <button
-                      type="button"
-                      mat-icon-button
-                      color="warn"
-                      tabindex="-1"
-                      (click)="navegarAltaBaja(element.idUsuario, false)"
-                      matTooltip="Inactivar registro."
-                      *ngIf="element.esVigente"
-                    >
-                      <mat-icon>radio_button_checked</mat-icon>
-                    </button>
-                    <button
-                      type="button"
-                      mat-icon-button
-                      style="color: green"
-                      tabindex="-1"
-                      (click)="navegarAltaBaja(element.idUsuario, true)"
-                      matTooltip="Activar registro."
-                      *ngIf="!element.esVigente"
-                    >
-                      <mat-icon>thumb_up_alt</mat-icon>
-                    </button>
-                  </td>
-                </ng-container> -->
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
 
               <tr class="mat-row" *matNoDataRow>
                 <td
@@ -316,18 +295,12 @@
                   }}</span>
                 </div>
                 <div class="field-col-12">
-                  <span class="span">Correo Electrónico: </span
-                  ><span>{{ element.correoElectronico }}</span>
+                  <span class="span">Código: </span
+                  ><span>{{ element.codigo }}</span>
                 </div>
                 <div class="field-col-12">
-                  <span class="span">Nombres y Apellidos: </span
-                  ><span>{{ element.nombreCompleto }}</span>
-                </div>
-                <div class="field-col-12">
-                  <span class="span">Fecha Registro: </span
-                  ><span>{{
-                    element.fechaRegistro | date : "dd/MM/yyyy"
-                  }}</span>
+                  <span class="span">Descripción: </span
+                  ><span>{{ element.descripcion }}</span>
                 </div>
                 <div class="field-col-12">
                   <span class="span">Estado: </span

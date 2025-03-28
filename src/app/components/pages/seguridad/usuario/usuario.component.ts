@@ -90,7 +90,7 @@ export class UsuarioComponent implements OnInit {
     this.dataSource = new MatTableDataSource([]);
     this.usuarioService.listarPaginado(params).subscribe((result: any) => {
       // console.log(result);
-      const data = result;
+      const data = result.data;
       // const data = result.data;
       // this.dataSource = new MatTableDataSource(data.content);
       this.dataSource = new MatTableDataSource(data.items);

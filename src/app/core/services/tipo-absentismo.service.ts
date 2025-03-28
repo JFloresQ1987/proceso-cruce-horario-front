@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GenericService } from './generic.service';
+// import { GenericService } from './generic.service';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -16,32 +16,6 @@ import { TipoAbsentismoCreateDto } from '../interfaces/tipo-absentismo-create-dt
 import { TipoAbsentismoUpdateDto } from '../interfaces/tipo-absentismo-update-dto';
 import { TipoAbsentismoDto } from '../interfaces/tipo-absentismo-dto';
 import { TipoAbsentismoStatusDto } from '../interfaces/tipo-absentismo-status-dto';
-
-// export interface UsuarioDto {
-//   idUsuario: number;
-//   nombreCompleto: string;
-//   correoElectronico: string;
-//   fechaRegistro: string;
-//   esVigente: boolean;
-// }
-
-// export interface PaginacionResponse<T> {
-//   totalRegistros: number;
-//   paginaActual: number;
-//   tamañoPagina: number;
-//   totalPaginas: number;
-//   datos: T[];
-// }
-
-// export interface UsuarioFilterDto extends PaginationParams {
-//   nombreCompleto?: string;
-//   esVigente?: string;
-// }
-
-// export interface PaginationParams {
-//   page: number;
-//   size: number;
-// }
 
 @Injectable({
   providedIn: 'root',
@@ -67,9 +41,16 @@ export class TipoAbsentismoService {
     return this.http.post(`${environment.HOST}/tipo-absentismo`, dto);
   }
 
-  actualizar(dto: TipoAbsentismoStatusDto) {
+  actualizar(dto: TipoAbsentismoUpdateDto) {
     return this.http.patch(
       `${environment.HOST}/tipo-absentismo/actualizar`,
+      dto
+    );
+  }
+
+  actualizarVigenciaGrupo(dto: TipoAbsentismoStatusDto) {
+    return this.http.patch(
+      `${environment.HOST}/tipo-absentismo/cambiar-vigencia`,
       dto
     );
   }

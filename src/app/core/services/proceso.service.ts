@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { saveFile } from '../util/download.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,10 @@ export class ProcesoService {
   }
 
   closeProcess(id: number): Observable<any> {
-    // return this.http.put(`${environment.HOST}/proceso/terminar/` + id, {});
     return this.http.patch(`${environment.HOST}/proceso/terminar/` + id, {});
   }
 
   public findDetailsByLoad(id: number): Observable<boolean> {
-    // let queryParms = new HttpParams().set('id', id);
     return this.http.get<boolean>(
       `${environment.HOST}/proceso/carga-detalle/` + id
     );
@@ -37,12 +36,10 @@ export class ProcesoService {
   }
 
   public findDetailsByProcess(id: number): Observable<boolean> {
-    // let queryParms = new HttpParams().set('id', id);
     return this.http.get<boolean>(`${environment.HOST}/proceso/detalles/` + id);
   }
 
   public donwloadLoadObservations(id: number): void {
-    // const url = `${this.url}/reporte/resumen-valorizado-detalle/${params.anio}/${params.mes}/${params.idIpress}`; // URL del backend
     this.http
       .get(
         `${environment.HOST}/proceso/descargar-observaciones/archivo/` + id,
@@ -52,14 +49,11 @@ export class ProcesoService {
         }
       )
       .subscribe({
-        // next: (blob) => this.saveFile(blob, `observaciones_${id}.xlsx`),
         next: (response: HttpResponse<Blob>) => {
           const blob = response.body!;
           const contentDisposition = response.headers?.get(
             'content-disposition'
           ); // Asegurar que headers existe
-          // console.log('blob', blob);
-          // console.log('contentDisposition', contentDisposition);
           let fileName = 'reporteResumido.xlsx'; // Nombre por defecto
           if (contentDisposition) {
             const matches = contentDisposition.match(
@@ -69,181 +63,156 @@ export class ProcesoService {
               fileName = decodeURIComponent(matches[1]);
             }
           }
-          // console.log('fileName', fileName);
-          this.saveFile(blob, fileName);
+          saveFile(blob, fileName);
         },
         error: (err) => console.error('Error al descargar el archivo', err),
       });
   }
 
-  public donwloadProcessObservations(id: number): void {
-    // const url = `${this.url}/reporte/resumen-valorizado-detalle/${params.anio}/${params.mes}/${params.idIpress}`; // URL del backend
-    this.http
-      .get(`${environment.HOST}/proceso/descargar-observaciones/` + id, {
-        responseType: 'blob',
-        observe: 'response',
-      })
-      .subscribe({
-        // next: (blob) => this.saveFile(blob, 'reporte.xlsx'),
-        next: (response: HttpResponse<Blob>) => {
-          const blob = response.body!;
-          const contentDisposition = response.headers?.get(
-            'content-disposition'
-          ); // Asegurar que headers existe
-          // console.log('blob', blob);
-          // console.log('contentDisposition', contentDisposition);
-          let fileName = 'reporteResumido.xlsx'; // Nombre por defecto
-          if (contentDisposition) {
-            const matches = contentDisposition.match(
-              /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
-            );
-            if (matches?.length > 1) {
-              fileName = decodeURIComponent(matches[1]);
-            }
-          }
-          // console.log('fileName', fileName);
-          this.saveFile(blob, fileName);
-        },
-        error: (err) => console.error('Error al descargar el archivo', err),
-      });
-  }
-
-  public donwloadProcessFullReport(id: number): void {
-    // const url = `${this.url}/reporte/resumen-valorizado-detalle/${params.anio}/${params.mes}/${params.idIpress}`; // URL del backend
-    this.http
-      .get(`${environment.HOST}/proceso/descargar-reporte-detallado/` + id, {
-        responseType: 'blob',
-        observe: 'response',
-      })
-      .subscribe({
-        // next: (blob) => this.saveFile(blob, 'reporteDetallado.xlsx'),
-        // next: (response: any)=>{
-        //   console.log(response)
-        // },
-        next: (response: HttpResponse<Blob>) => {
-          const blob = response.body!;
-          const contentDisposition = response.headers?.get(
-            'content-disposition'
-          ); // Asegurar que headers existe
-          // console.log('blob', blob);
-          // console.log('contentDisposition', contentDisposition);
-          let fileName = 'reporteDetallado.xlsx'; // Nombre por defecto
-          if (contentDisposition) {
-            const matches = contentDisposition.match(
-              /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
-            );
-            if (matches?.length > 1) {
-              fileName = decodeURIComponent(matches[1]);
-            }
-          }
-          // console.log('fileName', fileName);
-          this.saveFile(blob, fileName);
-        },
-        //         next: (response: any) => {
-        //           const blob = response.body!;
-        //           const contentDisposition = response.headers.get(
-        //             'Content-Disposition'
-        //           );
-        // console.log('blob',blob)
-        // console.log('contentDisposition',contentDisposition)
-        //           // Extraer el nombre del archivo de Content-Disposition
-        //           let fileName = 'reporteDetallado.xlsx'; // Valor por defecto
-        //           if (contentDisposition) {
-        //             const matches = contentDisposition.match(
-        //               /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
-        //             );
-        //             if (matches?.length > 1) {
-        //               fileName = decodeURIComponent(matches[1]);
-        //             }
-        //           }
-        //           console.log('fileName',fileName)
-        //           this.saveFile(blob, fileName);
-        //         },
-        error: (err) => console.error('Error al descargar el archivo', err),
-      });
-  }
-
-  public donwloadProcessResumeReport(id: number): void {
-    // const url = `${this.url}/reporte/resumen-valorizado-detalle/${params.anio}/${params.mes}/${params.idIpress}`; // URL del backend
-    this.http
-      .get(`${environment.HOST}/proceso/descargar-reporte-resumido/` + id, {
-        responseType: 'blob',
-        observe: 'response',
-      })
-      .subscribe({
-        // next: (blob) => this.saveFile(blob, 'reporteResumido.xlsx'),
-        next: (response: HttpResponse<Blob>) => {
-          const blob = response.body!;
-          const contentDisposition = response.headers?.get(
-            'content-disposition'
-          ); // Asegurar que headers existe
-          // console.log('blob', blob);
-          // console.log('contentDisposition', contentDisposition);
-          let fileName = 'reporteResumido.xlsx'; // Nombre por defecto
-          if (contentDisposition) {
-            const matches = contentDisposition.match(
-              /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
-            );
-            if (matches?.length > 1) {
-              fileName = decodeURIComponent(matches[1]);
-            }
-          }
-          // console.log('fileName', fileName);
-          this.saveFile(blob, fileName);
-        },
-        // next: (response: any) => {
-        //   const blob = response.body!;
-        //   const contentDisposition = response.headers.get(
-        //     'Content-Disposition'
-        //   );
-
-        //   // Extraer el nombre del archivo de Content-Disposition
-        //   let fileName = 'reporteDetallado.xlsx'; // Valor por defecto
-        //   if (contentDisposition) {
-        //     const matches = contentDisposition.match(
-        //       /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
-        //     );
-        //     if (matches?.length > 1) {
-        //       fileName = decodeURIComponent(matches[1]);
-        //     }
-        //   }
-
-        //   this.saveFile(blob, fileName);
-        // },
-        error: (err) => console.error('Error al descargar el archivo', err),
-      });
-  }
-
-  private saveFile(blob: Blob, fileName: string): void {
-    const link = document.createElement('a');
-    const url = window.URL.createObjectURL(blob);
-    link.href = url;
-    link.download = fileName;
-    link.click();
-    window.URL.revokeObjectURL(url);
-  }
-
-  // darBaja(especialidad: Especialidad): Observable<Especialidad> {
-  //   return this.http.put<Especialidad>(`${this.url}/baja`, especialidad, {
-  //     headers: this.getHeaders(),
-  //   });
+  // public donwloadProcessObservations(id: number): void {
+  //   // const url = `${this.url}/reporte/resumen-valorizado-detalle/${params.anio}/${params.mes}/${params.idIpress}`; // URL del backend
+  //   this.http
+  //     .get(`${environment.HOST}/proceso/descargar-observaciones/` + id, {
+  //       responseType: 'blob',
+  //       observe: 'response',
+  //     })
+  //     .subscribe({
+  //       // next: (blob) => this.saveFile(blob, 'reporte.xlsx'),
+  //       next: (response: HttpResponse<Blob>) => {
+  //         const blob = response.body!;
+  //         const contentDisposition = response.headers?.get(
+  //           'content-disposition'
+  //         ); // Asegurar que headers existe
+  //         // console.log('blob', blob);
+  //         // console.log('contentDisposition', contentDisposition);
+  //         let fileName = 'reporteResumido.xlsx'; // Nombre por defecto
+  //         if (contentDisposition) {
+  //           const matches = contentDisposition.match(
+  //             /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
+  //           );
+  //           if (matches?.length > 1) {
+  //             fileName = decodeURIComponent(matches[1]);
+  //           }
+  //         }
+  //         // console.log('fileName', fileName);
+  //         this.saveFile(blob, fileName);
+  //       },
+  //       error: (err) => console.error('Error al descargar el archivo', err),
+  //     });
   // }
 
-  // public update(dto: AppointmentDTO): Observable<AppointmentDTO> {
-  //   return this.httpClient.put<AppointmentDTO>(
-  //     environment.urlBase + '/api/appointments/' + dto.id,
-  //     dto
-  //   );
+  // public donwloadProcessFullReport(id: number): void {
+  //   // const url = `${this.url}/reporte/resumen-valorizado-detalle/${params.anio}/${params.mes}/${params.idIpress}`; // URL del backend
+  //   this.http
+  //     .get(`${environment.HOST}/proceso/descargar-reporte-detallado/` + id, {
+  //       responseType: 'blob',
+  //       observe: 'response',
+  //     })
+  //     .subscribe({
+  //       // next: (blob) => this.saveFile(blob, 'reporteDetallado.xlsx'),
+  //       // next: (response: any)=>{
+  //       //   console.log(response)
+  //       // },
+  //       next: (response: HttpResponse<Blob>) => {
+  //         const blob = response.body!;
+  //         const contentDisposition = response.headers?.get(
+  //           'content-disposition'
+  //         ); // Asegurar que headers existe
+  //         // console.log('blob', blob);
+  //         // console.log('contentDisposition', contentDisposition);
+  //         let fileName = 'reporteDetallado.xlsx'; // Nombre por defecto
+  //         if (contentDisposition) {
+  //           const matches = contentDisposition.match(
+  //             /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
+  //           );
+  //           if (matches?.length > 1) {
+  //             fileName = decodeURIComponent(matches[1]);
+  //           }
+  //         }
+  //         // console.log('fileName', fileName);
+  //         this.saveFile(blob, fileName);
+  //       },
+  //       //         next: (response: any) => {
+  //       //           const blob = response.body!;
+  //       //           const contentDisposition = response.headers.get(
+  //       //             'Content-Disposition'
+  //       //           );
+  //       // console.log('blob',blob)
+  //       // console.log('contentDisposition',contentDisposition)
+  //       //           // Extraer el nombre del archivo de Content-Disposition
+  //       //           let fileName = 'reporteDetallado.xlsx'; // Valor por defecto
+  //       //           if (contentDisposition) {
+  //       //             const matches = contentDisposition.match(
+  //       //               /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
+  //       //             );
+  //       //             if (matches?.length > 1) {
+  //       //               fileName = decodeURIComponent(matches[1]);
+  //       //             }
+  //       //           }
+  //       //           console.log('fileName',fileName)
+  //       //           this.saveFile(blob, fileName);
+  //       //         },
+  //       error: (err) => console.error('Error al descargar el archivo', err),
+  //     });
   // }
 
-  // public findByAppointmentId(id: number): Observable<AppointmentInfoDTO> {
-  //   let queryParms = new HttpParams().set('appointmentId', id);
-  //   return this.httpClient.get<AppointmentInfoDTO>(
-  //     environment.urlBase + '/api/appointments/info?' + queryParms
-  //   );
+  // public donwloadProcessResumeReport(id: number): void {
+  //   // const url = `${this.url}/reporte/resumen-valorizado-detalle/${params.anio}/${params.mes}/${params.idIpress}`; // URL del backend
+  //   this.http
+  //     .get(`${environment.HOST}/proceso/descargar-reporte-resumido/` + id, {
+  //       responseType: 'blob',
+  //       observe: 'response',
+  //     })
+  //     .subscribe({
+  //       // next: (blob) => this.saveFile(blob, 'reporteResumido.xlsx'),
+  //       next: (response: HttpResponse<Blob>) => {
+  //         const blob = response.body!;
+  //         const contentDisposition = response.headers?.get(
+  //           'content-disposition'
+  //         ); // Asegurar que headers existe
+  //         // console.log('blob', blob);
+  //         // console.log('contentDisposition', contentDisposition);
+  //         let fileName = 'reporteResumido.xlsx'; // Nombre por defecto
+  //         if (contentDisposition) {
+  //           const matches = contentDisposition.match(
+  //             /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
+  //           );
+  //           if (matches?.length > 1) {
+  //             fileName = decodeURIComponent(matches[1]);
+  //           }
+  //         }
+  //         // console.log('fileName', fileName);
+  //         this.saveFile(blob, fileName);
+  //       },
+  //       // next: (response: any) => {
+  //       //   const blob = response.body!;
+  //       //   const contentDisposition = response.headers.get(
+  //       //     'Content-Disposition'
+  //       //   );
+
+  //       //   // Extraer el nombre del archivo de Content-Disposition
+  //       //   let fileName = 'reporteDetallado.xlsx'; // Valor por defecto
+  //       //   if (contentDisposition) {
+  //       //     const matches = contentDisposition.match(
+  //       //       /filename\*?=["']?(?:UTF-8'')?([^"';]+)/
+  //       //     );
+  //       //     if (matches?.length > 1) {
+  //       //       fileName = decodeURIComponent(matches[1]);
+  //       //     }
+  //       //   }
+
+  //       //   this.saveFile(blob, fileName);
+  //       // },
+  //       error: (err) => console.error('Error al descargar el archivo', err),
+  //     });
   // }
 
-  // getFileInfo(): Observable<any> {
-  //   return this.http.get<any>(`${environment.HOST}/sharepoint/file-info`);
+  // private saveFile(blob: Blob, fileName: string): void {
+  //   const link = document.createElement('a');
+  //   const url = window.URL.createObjectURL(blob);
+  //   link.href = url;
+  //   link.download = fileName;
+  //   link.click();
+  //   window.URL.revokeObjectURL(url);
   // }
 }

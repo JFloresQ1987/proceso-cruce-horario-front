@@ -4,7 +4,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ProcesoService } from '../../../../core/services/proceso.service';
-import { SharePointService } from '../../../../core/services/sharepoint.service';
+// import { SharePointService } from '../../../../core/services/sharepoint.service';
 import { UploadService } from '../../../../core/services/upload.service';
 import { UtilsService } from '../../../../core/services/utils.service';
 
@@ -144,7 +144,7 @@ export class GenerarProcesoComponent implements OnInit {
     // public dialogRef: MatDialogRef<ProfesionalEspecialidadFormComponent>,
     private router: Router,
     private utilsService: UtilsService,
-    private sharePointService: SharePointService,
+    // private sharePointService: SharePointService,
     private uploadService: UploadService,
     private procesoService: ProcesoService
   ) {}
@@ -274,37 +274,37 @@ export class GenerarProcesoComponent implements OnInit {
     }
   }
 
-  async saveSharePoint(step: string): Promise<void> {
-    // let type = 0;
-    // let file = null;
+  // async saveSharePoint(step: string): Promise<void> {
+  //   // let type = 0;
+  //   // let file = null;
 
-    // if (!this.fileFirstCtrl) {
-    //   this.utilsService.warning({
-    //     message: 'Debes seleccionar un archivo antes de continuar.',
-    //   });
-    //   return;
-    // }
-    // type = 5;
-    // file = this.fileFirstCtrl;
+  //   // if (!this.fileFirstCtrl) {
+  //   //   this.utilsService.warning({
+  //   //     message: 'Debes seleccionar un archivo antes de continuar.',
+  //   //   });
+  //   //   return;
+  //   // }
+  //   // type = 5;
+  //   // file = this.fileFirstCtrl;
 
-    const confirm = await this.utilsService.confirm({
-      message: '¿Está seguro en validar el archivo?',
-    });
-    if (confirm) {
-      this.sharePointService.uploadFile().subscribe((result: any) => {
-        console.log(result);
+  //   const confirm = await this.utilsService.confirm({
+  //     message: '¿Está seguro en validar el archivo?',
+  //   });
+  //   if (confirm) {
+  //     this.sharePointService.uploadFile().subscribe((result: any) => {
+  //       console.log(result);
 
-        // this.isCompletedFirstCtrl = true;
-        // this.firstFormGroup.patchValue({
-        //   firstCtrl: this.isCompletedFirstCtrl,
-        // });
+  //       // this.isCompletedFirstCtrl = true;
+  //       // this.firstFormGroup.patchValue({
+  //       //   firstCtrl: this.isCompletedFirstCtrl,
+  //       // });
 
-        this.utilsService.success(/*{
-          message: state.message,
-        }*/);
-      });
-    }
-  }
+  //       this.utilsService.success(/*{
+  //         message: state.message,
+  //       }*/);
+  //     });
+  //   }
+  // }
 
   async save(step: string): Promise<void> {
     let type = 0;

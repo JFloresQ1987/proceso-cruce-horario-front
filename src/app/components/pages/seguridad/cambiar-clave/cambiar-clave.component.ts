@@ -29,6 +29,7 @@ export class CambiarClaveComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private utilsService: UtilsService,
+    private usuarioService: UsuarioService,
     private authService: AuthService // private usuarioService: UsuarioService // private authService: AuthService
   ) {}
 
@@ -106,7 +107,7 @@ export class CambiarClaveComponent implements OnInit {
         newPassword: this.form.value['passwordNuevo'],
       };
 
-      this.authService.changePassword(request).subscribe(() => {
+      this.usuarioService.changePassword(request).subscribe(() => {
         this.authService.logout();
         this.router.navigateByUrl('/login');
       });

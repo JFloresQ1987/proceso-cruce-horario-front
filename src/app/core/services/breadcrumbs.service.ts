@@ -52,26 +52,4 @@ export class BreadcrumbsService {
 
     return breadcrumbs;
   }
-
-  //   private buildBreadcrumbs(
-  //     route: ActivatedRouteSnapshot,
-  //     url: string = '',
-  //     breadcrumbs: Breadcrumb[] = []
-  //   ): Breadcrumb[] {
-  //     const routeConfig = route.routeConfig;
-  //     if (routeConfig?.path) {
-  //       const path = routeConfig.path;
-  //       url += `/${path}`;
-  //       breadcrumbs.push({
-  //         label: routeConfig?.data?.breadcrumb || path,
-  //         url,
-  //       });
-  //     }
-
-  //     if (route.firstChild) {
-  //       return this.buildBreadcrumbs(route.firstChild, url, breadcrumbs);
-  //     }
-
-  //     return breadcrumbs;
-  //   }
 }
