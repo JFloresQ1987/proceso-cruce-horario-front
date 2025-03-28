@@ -1,11 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import moment from 'moment';
 import { UtilsService } from '../../../../../core/services/utils.service';
-import { applyDateFormatToInput } from '../../../../../core/util/format.utils';
 import { UsuarioService } from '../../../../../core/services/usuario.service';
-import { UsuarioCreateDto } from '../../../../../core/interfaces/usuario-create-dto';
 import { UsuarioUpdateDto } from '../../../../../core/interfaces/usuario-update-dto';
 import { RolService } from '../../../../../core/services/rol.service';
 import { RolDto } from '../../../../../core/interfaces/rol-dto';
@@ -19,8 +16,6 @@ export class UsuarioFormComponent implements OnInit {
   id: number = 0;
   title: string = '';
   form: FormGroup;
-  // minDate: Date = new Date(2023, 0, 1);
-  // maxDate: Date;
   roles: RolDto[];
 
   @ViewChild('inputNombreCompleto') inputNombreCompleto!: ElementRef;
@@ -32,8 +27,6 @@ export class UsuarioFormComponent implements OnInit {
     private usuarioService: UsuarioService,
     private rolService: RolService
   ) {
-    // this.maxDate = new Date();
-
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       const { id } = navigation.extras.state;
@@ -75,7 +68,6 @@ export class UsuarioFormComponent implements OnInit {
 
   loadInitial(): void {
     this.rolService.listar().subscribe((result: any) => {
-      // console.log(data)
       const data = result.data;
       this.roles = data;
     });
@@ -92,7 +84,6 @@ export class UsuarioFormComponent implements OnInit {
           nombreCompleto: data.nombreCompleto,
           correoElectronico: data.correoElectronico,
           roles: rolesIds,
-          // fechaDocumentoAutoriza: moment(data.fechaDocumentoAutoriza).toDate(),
         });
       });
     }
@@ -119,36 +110,32 @@ export class UsuarioFormComponent implements OnInit {
 
     if (this.id == 0) {
       const confirm = await this.utilsService.confirm({
-        message: '¿Está seguro en realizar la acción de creación?',
+        message: '¿Está seguro en crear el usuario?',
       });
       if (confirm) {
         this.usuarioService.guardar(entidad).subscribe((result: any) => {
           this.router.navigate(['/usuario'], {
             state: {
-              message: 'La acción de creación fue completada con éxito.',
+              message: 'La creación de usuario fue completada con éxito.',
             },
           });
         });
       }
     } else {
       const confirm = await this.utilsService.confirm({
-        message: '¿Está seguro en realizar la acción de actualización?',
+        message: '¿Está seguro en actualizar el usuario?',
       });
       if (confirm) {
         this.usuarioService.actualizar(entidad).subscribe((result: any) => {
           this.router.navigate(['/usuario'], {
             state: {
-              message: 'La acción de actualización fue completada con éxito.',
+              message: 'La actualización de usuario fue completada con éxito.',
             },
           });
         });
       }
     }
   }
-
-  // formatDate(event: Event): void {
-  //   applyDateFormatToInput(event);
-  // }
 
   async cancel(): Promise<void> {
     const confirm = await this.utilsService.confirm({

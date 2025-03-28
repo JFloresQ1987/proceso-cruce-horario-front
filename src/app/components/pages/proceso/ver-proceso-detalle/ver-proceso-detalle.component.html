@@ -4,174 +4,100 @@
       <mat-card-title>Detalles del Proceso</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <!-- <fieldset>
-        <legend>Criterios de Búsqueda</legend>
-        <div class="form-grid">
-          <mat-form-field
-            appearance="fill"
-            class="field-col-4"
-            hintLabel="Máximo 2 dígitos"
+      <div class="table-container">
+        <div class="table-wrapper custom-table">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 large-table"
+            *ngIf="!isSmallScreen"
           >
-            <mat-label>Código</mat-label>
-            <input
-              #inputCodigo
-              matInput
-              [(ngModel)]="idEspecialidad"
-              maxlength="2"
-              (input)="inputOnlyNumber($event)"
-              (keydown.enter)="search()"
-            />
-            <mat-hint align="end">
-              {{ inputCodigo.value?.length || 0 }}/2
-            </mat-hint>
-          </mat-form-field>
-          <mat-form-field
-            appearance="fill"
-            class="field-col-8"
-            hintLabel="Máximo 150 caracteres"
-          >
-            <mat-label>Descripción</mat-label>
-            <input
-              #inputDescripcion
-              matInput
-              [(ngModel)]="descripcion"
-              maxlength="150"
-              (keydown.enter)="search()"
-            />
-            <mat-hint align="end">
-              {{ inputDescripcion.value?.length || 0 }}/150
-            </mat-hint>
-          </mat-form-field>
+            <ng-container matColumnDef="nro">
+              <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                Nro
+              </th>
+              <td
+                mat-cell
+                class="center"
+                *matCellDef="let element; let i = index"
+              >
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="etapa">
+              <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                Etapa
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.etapa }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaInicio">
+              <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                Fecha Inicio
+              </th>
+              <td mat-cell class="center" *matCellDef="let element">
+                {{ element.fechaInicio | date : "dd/MM/yyyy HH:mm:ss" }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaFin">
+              <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+                Fecha Fin
+              </th>
+              <td mat-cell class="center" *matCellDef="let element">
+                {{ element.fechaFin | date : "dd/MM/yyyy HH:mm:ss" }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                class="mat-header-cell"
+                style="min-width: 130px"
+              >
+                Estado
+              </th>
+              <td mat-cell class="center" *matCellDef="let element">
+                <ng-template [ngIf]="element.estado === 1">
+                  <span
+                    class="bg-warning text-white rounded font-10 p-l-5 p-r-5"
+                    >En Proceso</span
+                  >
+                </ng-template>
+                <ng-template [ngIf]="element.estado === 2">
+                  <span
+                    class="bg-success text-white rounded font-10 p-l-5 p-r-5"
+                    >Satisfactorio</span
+                  >
+                </ng-template>
+                <ng-template [ngIf]="element.estado === 3">
+                  <span class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
+                    >Con Error</span
+                  >
+                </ng-template>
+              </td>
+            </ng-container>
+            <tr class="mat-row" *matNoDataRow>
+              <td
+                class="mat-cell no-data-cell"
+                colspan="6"
+                style="height: 50px"
+              >
+                No se encontraron resultados.
+              </td>
+            </tr>
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              class="mat-row"
+            ></tr>
+          </table>
         </div>
-        <div style="text-align: left; margin-top: 20px">
-          <button
-            type="button"
-            mat-raised-button
-            color="primary"
-            (click)="search()"
-            matTooltip="Buscar"
-            matTooltipPosition="above"
-          >
-            <mat-icon>search</mat-icon>
-            Buscar
-          </button>
-          <button
-            type="button"
-            mat-raised-button
-            style="margin-left: 15px"
-            (click)="clear()"
-            matTooltip="Limpiar"
-            matTooltipPosition="above"
-          >
-            <mat-icon>cached</mat-icon>
-            Limpiar
-          </button>
-        </div>
-      </fieldset> -->
-      <!-- <fieldset>
-        <legend>Listado de Resultados</legend> -->
-        <div class="table-container">
-          <div class="table-wrapper custom-table">
-            <table
-              mat-table
-              [dataSource]="dataSource"
-              class="mat-elevation-z8 large-table"
-              *ngIf="!isSmallScreen"
-            >
-              <ng-container matColumnDef="nro">
-                <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                  Nro
-                </th>
-                <td mat-cell class="center" *matCellDef="let element; let i = index">
-                  <!-- {{ i + 1 + paginator.pageIndex * paginator.pageSize }} -->
-                  {{ i + 1 }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="etapa">
-                <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                  Etapa
-                </th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.etapa }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="fechaInicio">
-                <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                  Fecha Inicio
-                </th>
-                <td mat-cell class="center" *matCellDef="let element">
-                  {{ element.fechaInicio | date : "dd/MM/yyyy HH:mm:ss" }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="fechaFin">
-                <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                  Fecha Fin
-                </th>
-                <td mat-cell class="center" *matCellDef="let element">
-                  {{ element.fechaFin | date : "dd/MM/yyyy HH:mm:ss" }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="estado">
-                <th
-                  mat-header-cell
-                  *matHeaderCellDef
-                  class="mat-header-cell"
-                  style="min-width: 130px"
-                >
-                  Estado
-                </th>
-                <td mat-cell class="center" *matCellDef="let element">
-                  <ng-template [ngIf]="element.estado === 1">
-                    <span
-                      class="bg-warning text-white rounded font-10 p-l-5 p-r-5"
-                      >En Proceso</span
-                    >
-                  </ng-template>
-                  <ng-template [ngIf]="element.estado === 2">
-                    <span
-                      class="bg-success text-white rounded font-10 p-l-5 p-r-5"
-                      >Satisfactorio</span
-                    >
-                  </ng-template>
-                  <ng-template [ngIf]="element.estado === 3">
-                    <span
-                      class="bg-danger text-white rounded font-10 p-l-5 p-r-5"
-                      >Con Error</span
-                    >
-                  </ng-template>
-                </td>
-              </ng-container>
-              <tr class="mat-row" *matNoDataRow>
-                <td
-                  class="mat-cell no-data-cell"
-                  colspan="6"
-                  style="height: 50px"
-                >
-                  No se encontraron resultados.
-                </td>
-              </tr>
-              <tr
-                mat-header-row
-                *matHeaderRowDef="displayedColumns; sticky: true"
-              ></tr>
-              <tr
-                mat-row
-                *matRowDef="let row; columns: displayedColumns"
-                class="mat-row"
-              ></tr>
-            </table>
-            <!-- <mat-paginator
-              class="mat-paginator-sticky"
-              [length]="rowsCount"
-              [pageSize]="pageSize"
-              [pageSizeOptions]="[5, 10, 20, 50]"
-              (page)="getEventData()"
-              showFirstLastButtons
-            >
-            </mat-paginator> -->
-          </div>
-        </div>
-      <!-- </fieldset> -->
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

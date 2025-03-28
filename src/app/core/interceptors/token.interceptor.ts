@@ -37,11 +37,6 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
     this.loadingService.showLoading();
-    // return next.handle(modifiedReq).pipe(
-    //   finalize(() => {
-    //     this.loadingService.hideLoading();
-    //   })
-    // );
     return next.handle(modifiedReq).pipe(
       tap((event) => {
         if (event instanceof HttpResponse) {
@@ -55,20 +50,5 @@ export class TokenInterceptor implements HttpInterceptor {
         this.loadingService.hideLoading();
       })
     );
-
-    // return next.handle(modifiedReq).pipe(
-    //   tap((event: any) => {
-    //     // console.log('Headers recibidos:', event.headers.keys());
-    //     console.log('event', event);
-    //     const newToken = event.headers?.get('New-Access-Token');
-    //     console.log('newToken', newToken);
-    //     if (newToken) {
-    //       this.authService.setToken(newToken);
-    //     }
-    //   }),
-    //   finalize(() => {
-    //     this.loadingService.hideLoading();
-    //   })
-    // );
   }
 }

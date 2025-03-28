@@ -22,7 +22,6 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.username.trim() == '' || this.password.trim() == '') {
-      // this.errorMessage = 'Correo electrónico o contraseña incorrectos';
       this.errorMessage = 'Correo electrónico o contraseña incorrectos';
       return;
     }
@@ -33,7 +32,6 @@ export class LoginComponent {
       .login(this.username, this.password /*, this.recaptchaResponse*/)
       .subscribe(
         (result) => {
-          // console.log(result.token);
           this.errorMessage = '';
           this.authService.setToken(result.data);
           this.router.navigate(['/generar-proceso']);

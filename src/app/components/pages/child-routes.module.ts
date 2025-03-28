@@ -61,13 +61,6 @@ const childRoutes: Routes = [
           breadcrumb: 'Editar',
         },
       },
-      // {
-      //   path: 'baja',
-      //   component: UsuarioBajaFormComponent,
-      //   data: {
-      //     breadcrumb: 'Baja',
-      //   },
-      // },
     ],
   },
   {

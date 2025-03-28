@@ -6,7 +6,6 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { NavigationState } from '../../../../core/interfaces/navigation-state';
 import { UtilsService } from '../../../../core/services/utils.service';
 import { EstadoEnum } from '../../../../core/util/enum';
-import { Usuario } from '../../../../core/interfaces/usuario';
 import { UsuarioService } from '../../../../core/services/usuario.service';
 import { UsuarioStatusDto } from '../../../../core/interfaces/usuario-status-dto';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,7 +32,6 @@ export class UsuarioComponent implements OnInit {
   isSmallScreen: boolean = false;
   dataSource: MatTableDataSource<UsuarioDto>;
   estado: string = EstadoEnum.ACTIVO;
-  // descripcion: string = '';
   nombreCompleto: string = '';
   rowsCount: number = 0;
   pageIndex: number = 0;
@@ -79,8 +77,6 @@ export class UsuarioComponent implements OnInit {
     }
 
     const params: UsuarioFilterDto = {
-      // descripcion: this.descripcion,
-      // estado: this.estado,
       nombreCompleto: this.nombreCompleto,
       esVigente: this.estado,
       page: this.pageIndex + 1,
@@ -89,10 +85,7 @@ export class UsuarioComponent implements OnInit {
 
     this.dataSource = new MatTableDataSource([]);
     this.usuarioService.listarPaginado(params).subscribe((result: any) => {
-      // console.log(result);
       const data = result.data;
-      // const data = result.data;
-      // this.dataSource = new MatTableDataSource(data.content);
       this.dataSource = new MatTableDataSource(data.items);
       this.rowsCount = data.totalRegistros;
     });
@@ -121,9 +114,6 @@ export class UsuarioComponent implements OnInit {
   }
 
   navegarResetear(id: number): void {
-    // this.router.navigate(['/usuario/editar'], {
-    //   state: { id },
-    // });
     this.loadDialog(id);
   }
 
@@ -133,18 +123,8 @@ export class UsuarioComponent implements OnInit {
       maxHeight: '90vh',
       disableClose: false,
     });
-    dialogRef.afterOpened().subscribe(() => {
-      const componentInstance = dialogRef.componentInstance;
-      // const numeroDocumento = this.form.value['numeroDocumento'];
-      // componentInstance.setData(numeroDocumento);
-      // const componentInstance = dialogRefProfesional.componentInstance;
-      // componentInstance.setData(id);
-    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // console.log(result)
-        // this.expedientes.push(result);
-        // this.dataSourceExpedientes.data = this.expedientes;
         const entidad: UsuarioResetDto = {
           idUsuario: id,
           clave: result,
@@ -153,35 +133,13 @@ export class UsuarioComponent implements OnInit {
         this.usuarioService.resetearClave(entidad).subscribe((result: any) => {
           this.loadGrid();
           this.utilsService.success({
-            message: 'La acción de reseteo fue completada con éxito.',
+            message:
+              'La acción de reseteo de clave de usuario fue completada con éxito.',
           });
         });
       }
     });
   }
-
-  // loadDialogEspecialidad(): void {
-  //   const dialogRef = this.dialog.open(ProfesionalEspecialidadFormComponent, {
-  //     width: '900px',
-  //     maxHeight: '90vh',
-  //     disableClose: false,
-  //   });
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result) {
-  //       const existe = this.especialidades.some(
-  //         (item) => item.idEspecialidad === result.idEspecialidad
-  //       );
-  //       if (existe) {
-  //         this.utilsService.warning({
-  //           message: `La especialidad con Código ${result.idEspecialidad} ya fue agregado.`,
-  //         });
-  //         return;
-  //       }
-  //       this.especialidades.push(result);
-  //       this.dataSourceEspecialidades.data = this.especialidades;
-  //     }
-  //   });
-  // }
 
   async navegarAltaBaja(id: number, esVigente: boolean): Promise<void> {
     const entidad: UsuarioStatusDto = {
@@ -190,7 +148,9 @@ export class UsuarioComponent implements OnInit {
     };
 
     const confirm = await this.utilsService.confirm({
-      message: '¿Está seguro en realizar la acción de alta/baja?',
+      message: esVigente
+        ? '¿Está seguro en dar de alta al usuario?'
+        : '¿Está seguro en dar de baja al usuario?',
     });
     if (confirm) {
       this.usuarioService
@@ -198,13 +158,10 @@ export class UsuarioComponent implements OnInit {
         .subscribe((result: any) => {
           this.loadGrid();
           this.utilsService.success({
-            message: 'La acción de alta/baja fue completada con éxito.',
+            message: esVigente
+              ? 'La acción de alta fue completada con éxito.'
+              : 'La acción de baja fue completada con éxito.',
           });
-          // this.router.navigate(['/usuario'], {
-          //   state: {
-          //     message: 'La acción de creación fue completada con éxito.',
-          //   },
-          // });
         });
     }
   }

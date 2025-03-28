@@ -4,70 +4,6 @@
       <mat-card-title>Resetear Clave</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <!-- <fieldset>
-          <legend>Criterios de Búsqueda</legend>
-          <div class="form-grid">
-            <mat-form-field
-              appearance="fill"
-              class="field-col-4"
-              hintLabel="Máximo 2 dígitos"
-            >
-              <mat-label>Código</mat-label>
-              <input
-                #inputCodigo
-                matInput
-                [(ngModel)]="idEspecialidad"
-                maxlength="2"
-                (input)="inputOnlyNumber($event)"
-                (keydown.enter)="search()"
-              />
-              <mat-hint align="end">
-                {{ inputCodigo.value?.length || 0 }}/2
-              </mat-hint>
-            </mat-form-field>
-            <mat-form-field
-              appearance="fill"
-              class="field-col-8"
-              hintLabel="Máximo 150 caracteres"
-            >
-              <mat-label>Descripción</mat-label>
-              <input
-                #inputDescripcion
-                matInput
-                [(ngModel)]="descripcion"
-                maxlength="150"
-                (keydown.enter)="search()"
-              />
-              <mat-hint align="end">
-                {{ inputDescripcion.value?.length || 0 }}/150
-              </mat-hint>
-            </mat-form-field>
-          </div>
-          <div style="text-align: left; margin-top: 20px">
-            <button
-              type="button"
-              mat-raised-button
-              color="primary"
-              (click)="search()"
-              matTooltip="Buscar"
-              matTooltipPosition="above"
-            >
-              <mat-icon>search</mat-icon>
-              Buscar
-            </button>
-            <button
-              type="button"
-              mat-raised-button
-              style="margin-left: 15px"
-              (click)="clear()"
-              matTooltip="Limpiar"
-              matTooltipPosition="above"
-            >
-              <mat-icon>cached</mat-icon>
-              Limpiar
-            </button>
-          </div>
-        </fieldset> -->
       <div class="form-grid">
         <mat-form-field
           appearance="fill"
@@ -93,19 +29,6 @@
     </mat-card-content>
   </mat-card>
 </div>
-<!-- <mat-dialog-actions align="end" class="dialog-actions">
-  <button
-    mat-button
-    mat-raised-button
-    mat-dialog-close
-    class="cancel-button"
-    color="primary"
-    matTooltip="Cancelar búsqueda."
-  >
-    Cancelar
-    <mat-icon>cancel</mat-icon>
-  </button>
-</mat-dialog-actions> -->
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="false">
     <mat-icon>cancel</mat-icon>

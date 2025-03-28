@@ -1,10 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { RolDto } from '../../../../core/interfaces/rol-dto';
-import { UsuarioUpdateDto } from '../../../../core/interfaces/usuario-update-dto';
-import { RolService } from '../../../../core/services/rol.service';
-import { UsuarioService } from '../../../../core/services/usuario.service';
+import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../../core/services/utils.service';
 import { inputOnlyNumber } from '../../../../core/util/utils';
 import { ConfiguracionUpdateDto } from '../../../../core/interfaces/configuracion-update-dto';
@@ -16,12 +10,6 @@ import { ConfiguracionService } from '../../../../core/services/configuracion.se
   styleUrl: './tolerancia.component.css',
 })
 export class ToleranciaComponent implements OnInit {
-  // id: number = 0;
-  // title: string = '';
-  // form: FormGroup;
-  // minDate: Date = new Date(2023, 0, 1);
-  // maxDate: Date;
-  // roles: RolDto[];
   existeParametroHoraExtraToleranciaInicioDesde: boolean = false;
   existeParametroHoraExtraToleranciaInicioHasta: boolean = false;
   existeParametroHoraExtraToleranciaFinDesde: boolean = false;
@@ -62,58 +50,18 @@ export class ToleranciaComponent implements OnInit {
   valorParametroAbsentismoToleranciaFinDesde: number = 0;
   valorParametroAbsentismoToleranciaFinHasta: number = 0;
 
-  // @ViewChild('inputNombreCompleto') inputNombreCompleto!: ElementRef;
-
   constructor(
-    private router: Router,
-    // private fb: FormBuilder,
     private utilsService: UtilsService,
-    private configuracionService: ConfiguracionService,
-    private rolService: RolService
-  ) {
-    // this.maxDate = new Date();
-    // const navigation = this.router.getCurrentNavigation();
-    // if (navigation?.extras.state) {
-    //   const { id } = navigation.extras.state;
-    //   this.id = id ?? '';
-    // } else {
-    //   this.router.navigate(['/usuario/nuevo']);
-    // }
-  }
+    private configuracionService: ConfiguracionService
+  ) {}
 
   ngOnInit(): void {
-    // this.form = this.fb.group({
-    //   idUsuario: [''],
-    //   nombreCompleto: [
-    //     '',
-    //     [
-    //       Validators.required,
-    //       Validators.minLength(3),
-    //       Validators.maxLength(150),
-    //     ],
-    //   ],
-    //   correoElectronico: [
-    //     '',
-    //     [
-    //       Validators.required,
-    //       Validators.minLength(3),
-    //       Validators.maxLength(150),
-    //     ],
-    //   ],
-    //   roles: [[], [Validators.required]],
-    // });
     this.loadInitial();
-    // setTimeout(() => {
-    //   if (this.inputNombreCompleto) {
-    //     this.inputNombreCompleto.nativeElement.focus();
-    //   }
-    // });
   }
 
   loadInitial(): void {
     this.configuracionService.listar().subscribe((result: any) => {
       const data = result.data;
-      // console.log(data);
       const parametroHoraExtraToleranciaInicioDesde = data.find(
         (config) => config.codigo === 'HHEE_TOLERANCIA_INICIO_DESDE'
       );
@@ -173,10 +121,6 @@ export class ToleranciaComponent implements OnInit {
           parametroHoraExtraToleranciaFinHasta.descripcion;
         this.existeParametroHoraExtraToleranciaFinHasta = true;
       }
-
-
-
-
 
       const parametroAbsentismoToleranciaInicioDesde = data.find(
         (config) => config.codigo === 'ABSN_TOLERANCIA_INICIO_DESDE'
@@ -238,23 +182,6 @@ export class ToleranciaComponent implements OnInit {
         this.existeParametroAbsentismoToleranciaFinHasta = true;
       }
     });
-
-    // if (this.id === 0) {
-    //   this.title = 'Nuevo Registro';
-    // } else {
-    //   this.title = 'Editar Registro';
-    //   this.usuarioService.listarPorId(this.id).subscribe((result: any) => {
-    //     const data = result.data;
-    //     const rolesIds: number[] = data.roles.map((rol) => rol.idRol);
-    //     this.form.patchValue({
-    //       idUsuario: data.idUsuario,
-    //       nombreCompleto: data.nombreCompleto,
-    //       correoElectronico: data.correoElectronico,
-    //       roles: rolesIds,
-    //       // fechaDocumentoAutoriza: moment(data.fechaDocumentoAutoriza).toDate(),
-    //     });
-    //   });
-    // }
   }
 
   async save(id: number, valor: number): Promise<void> {
@@ -264,29 +191,16 @@ export class ToleranciaComponent implements OnInit {
     };
 
     const confirm = await this.utilsService.confirm({
-      message: '¿Está seguro en realizar la acción de actualización?',
+      message: '¿Está seguro de actualizarlo?',
     });
     if (confirm) {
       this.configuracionService.actualizar(entidad).subscribe((result: any) => {
         this.utilsService.success({
-          message: 'La acción de actualización fue completada con éxito.',
+          message: 'La actualización fue completada con éxito.',
         });
       });
     }
   }
-
-  // formatDate(event: Event): void {
-  //   applyDateFormatToInput(event);
-  // }
-
-  // async cancel(): Promise<void> {
-  //   const confirm = await this.utilsService.confirm({
-  //     message: '¿Está seguro en cancelar la acción?',
-  //   });
-  //   if (confirm) {
-  //     this.router.navigate(['/usuario']);
-  //   }
-  // }
 
   inputOnlyNumber(event: Event): void {
     inputOnlyNumber(event);

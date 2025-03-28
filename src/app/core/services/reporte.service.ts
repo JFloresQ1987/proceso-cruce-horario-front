@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { saveFile } from '../util/download.utils';
 
@@ -90,13 +89,4 @@ export class ReporteService {
         error: (err) => console.error('Error al descargar el archivo', err),
       });
   }
-
-  // private saveFile(blob: Blob, fileName: string): void {
-  //   const link = document.createElement('a');
-  //   const url = window.URL.createObjectURL(blob);
-  //   link.href = url;
-  //   link.download = fileName;
-  //   link.click();
-  //   window.URL.revokeObjectURL(url);
-  // }
 }

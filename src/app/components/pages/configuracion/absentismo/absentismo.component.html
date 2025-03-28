@@ -1,5 +1,3 @@
-<!-- <router-outlet></router-outlet>
-<div [hidden]="checkChildren()"> -->
 <div class="example-container">
   <mat-card appearance="outlined">
     <mat-card-header>
@@ -25,14 +23,6 @@
             />
             <mat-hint align="end"> {{ input.value?.length || 0 }}/50 </mat-hint>
           </mat-form-field>
-          <!-- <mat-form-field appearance="fill" class="field-col-3">
-            <mat-label>Estado</mat-label>
-            <mat-select [(ngModel)]="estado">
-              <mat-option value="">Todos</mat-option>
-              <mat-option value="1">Activo</mat-option>
-              <mat-option value="0">Inactivo</mat-option>
-            </mat-select>
-          </mat-form-field> -->
           <mat-form-field appearance="fill" class="field-col-3">
             <mat-label>Grupo</mat-label>
             <mat-select [(ngModel)]="grupoTipoAbsentismo">
@@ -303,8 +293,95 @@
                   ><span>{{ element.descripcion }}</span>
                 </div>
                 <div class="field-col-12">
-                  <span class="span">Estado: </span
-                  ><ng-template [ngIf]="element.esVigente">
+                  <span class="span">Por Horas (Grupo 1): </span>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    style="color: green"
+                    tabindex="-1"
+                    (click)="
+                      navegarAltaBaja(element.idMaestroTipoAbsentismo, 1, false)
+                    "
+                    matTooltip="Inactivar registro."
+                    *ngIf="element.perteneceGrupo1"
+                  >
+                    <mat-icon>radio_button_checked</mat-icon>
+                  </button>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    color="warn"
+                    tabindex="-1"
+                    (click)="
+                      navegarAltaBaja(element.idMaestroTipoAbsentismo, 1, true)
+                    "
+                    matTooltip="Activar registro."
+                    *ngIf="!element.perteneceGrupo1"
+                  >
+                    <mat-icon>radio_button_checked</mat-icon>
+                  </button>
+                </div>
+                <div class="field-col-12">
+                  <span class="span">Por Días (Grupo 2): </span>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    style="color: green"
+                    tabindex="-1"
+                    (click)="
+                      navegarAltaBaja(element.idMaestroTipoAbsentismo, 2, false)
+                    "
+                    matTooltip="Inactivar registro."
+                    *ngIf="element.perteneceGrupo2"
+                  >
+                    <mat-icon>radio_button_checked</mat-icon>
+                  </button>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    color="warn"
+                    tabindex="-1"
+                    (click)="
+                      navegarAltaBaja(element.idMaestroTipoAbsentismo, 2, true)
+                    "
+                    matTooltip="Activar registro."
+                    *ngIf="!element.perteneceGrupo2"
+                  >
+                    <mat-icon>radio_button_checked</mat-icon>
+                  </button>
+                </div>
+                <div class="field-col-12">
+                  <span class="span">Grupo 3: </span>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    style="color: green"
+                    tabindex="-1"
+                    (click)="
+                      navegarAltaBaja(element.idMaestroTipoAbsentismo, 3, false)
+                    "
+                    matTooltip="Inactivar registro."
+                    *ngIf="element.perteneceGrupo3"
+                  >
+                    <mat-icon>radio_button_checked</mat-icon>
+                  </button>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    color="warn"
+                    tabindex="-1"
+                    (click)="
+                      navegarAltaBaja(element.idMaestroTipoAbsentismo, 3, true)
+                    "
+                    matTooltip="Activar registro."
+                    *ngIf="!element.perteneceGrupo3"
+                  >
+                    <mat-icon>radio_button_checked</mat-icon>
+                  </button>
+                </div>
+                <div class="field-col-12">
+                  <span class="span">Estado: </span>
+                  <ng-template [ngIf]="element.esVigente">
                     <span
                       class="bg-success text-white rounded font-10 p-l-5 p-r-5"
                       >Activo</span
@@ -318,27 +395,15 @@
                   </ng-template>
                 </div>
                 <div class="field-col-12">
-                  <!-- <button
+                  <button
                     type="button"
                     mat-icon-button
                     color="primary"
                     matTooltip="Editar registro."
-                    *ngIf="element.esVigente"
-                    (click)="navegarEditar(element.idUsuario)"
+                    (click)="navegarEditar(element)"
                   >
                     <mat-icon>edit</mat-icon>
-                  </button> -->
-                  <!-- <button
-                      type="button"
-                      mat-icon-button
-                      color="warn"
-                      tabindex="-1"
-                      (click)="navegarAltaBaja(element.idUsuario, false)"
-                      matTooltip="Inactivar registro."
-                      *ngIf="element.esVigente"
-                    >
-                      <mat-icon>thumb_down_alt</mat-icon>
-                    </button> -->
+                  </button>
                 </div>
               </div>
             </div>
@@ -358,4 +423,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-<!-- </div> -->

@@ -3,16 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { NavigationState } from '../../../../core/interfaces/navigation-state';
-import { UsuarioDto } from '../../../../core/interfaces/usuario-dto';
-import { UsuarioFilterDto } from '../../../../core/interfaces/usuario-filter-dto';
-import { UsuarioResetDto } from '../../../../core/interfaces/usuario-reset-dto';
-import { UsuarioStatusDto } from '../../../../core/interfaces/usuario-status-dto';
-import { UsuarioService } from '../../../../core/services/usuario.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UtilsService } from '../../../../core/services/utils.service';
-import { EstadoEnum } from '../../../../core/util/enum';
-import { UsuarioResetFormComponent } from '../../seguridad/usuario/usuario-reset-form/usuario-reset-form.component';
 import { TipoAbsentismoService } from '../../../../core/services/tipo-absentismo.service';
 import { TipoAbsentismoFilterDto } from '../../../../core/interfaces/tipo-absentismo-filter-dto';
 import { TipoAbsentismoStatusDto } from '../../../../core/interfaces/tipo-absentismo-status-dto';
@@ -39,10 +31,8 @@ export class AbsentismoComponent implements OnInit {
 
   isSmallScreen: boolean = false;
   dataSource: MatTableDataSource<TipoAbsentismoDto>;
-  // estado: string = EstadoEnum.ACTIVO;
   grupoTipoAbsentismo: string = '';
   descripcion: string = '';
-  // nombreCompleto: string = '';
   rowsCount: number = 0;
   pageIndex: number = 0;
   pageSize: number = 20;
@@ -61,20 +51,7 @@ export class AbsentismoComponent implements OnInit {
     private tipoAbsentismoService: TipoAbsentismoService,
     private utilsService: UtilsService,
     private dialog: MatDialog
-  ) {
-    // this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd && event.url === '/usuario') {
-    //     const state = this.router.getCurrentNavigation()?.extras
-    //       .state as NavigationState;
-    //     if (state?.message) {
-    //       this.loadGrid();
-    //       this.utilsService.success({
-    //         message: state.message,
-    //       });
-    //     }
-    //   }
-    // });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadGrid();
@@ -89,8 +66,6 @@ export class AbsentismoComponent implements OnInit {
     const params: TipoAbsentismoFilterDto = {
       descripcion: this.descripcion,
       grupo: this.grupoTipoAbsentismo,
-      // nombreCompleto: this.nombreCompleto,
-      // esVigente: this.estado,
       page: this.pageIndex + 1,
       size: this.pageSize,
     };
@@ -99,10 +74,7 @@ export class AbsentismoComponent implements OnInit {
     this.tipoAbsentismoService
       .listarPaginado(params)
       .subscribe((result: any) => {
-        // console.log(result);
         const data = result.data;
-        // const data = result.data;
-        // this.dataSource = new MatTableDataSource(data.content);
         this.dataSource = new MatTableDataSource(data.items);
         this.rowsCount = data.totalRegistros;
       });
@@ -112,7 +84,6 @@ export class AbsentismoComponent implements OnInit {
     this.paginator.pageIndex = 0;
     this.paginator.pageSize = 20;
     this.descripcion = '';
-    // this.estado = EstadoEnum.ACTIVO;
     this.grupoTipoAbsentismo = '';
     this.loadGrid();
   }
@@ -122,26 +93,12 @@ export class AbsentismoComponent implements OnInit {
   }
 
   navegarNuevo(): void {
-    // this.router.navigate(['/usuario/nuevo']);
     const params: TipoAbsentismoUpdateDto = {
       idMaestroTipoAbsentismo: 0,
       codigo: 0,
     };
     this.loadDialog(params);
   }
-
-  // navegarEditar(id: number): void {
-  //   this.router.navigate(['/usuario/editar'], {
-  //     state: { id },
-  //   });
-  // }
-
-  // navegarResetear(id: number): void {
-  //   // this.router.navigate(['/usuario/editar'], {
-  //   //   state: { id },
-  //   // });
-  //   this.loadDialog(id);
-  // }
 
   loadDialog(dto: TipoAbsentismoUpdateDto): void {
     const dialogRef = this.dialog.open(AbsentismoFormComponent, {
@@ -151,9 +108,6 @@ export class AbsentismoComponent implements OnInit {
     });
     dialogRef.afterOpened().subscribe(() => {
       const componentInstance = dialogRef.componentInstance;
-      // const numeroDocumento = this.form.value['numeroDocumento'];
-      // componentInstance.setData(numeroDocumento);
-      // const componentInstance = dialogRefProfesional.componentInstance;
       componentInstance.setData(dto);
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -163,7 +117,7 @@ export class AbsentismoComponent implements OnInit {
           this.tipoAbsentismoService.guardar(data).subscribe((result: any) => {
             this.loadGrid();
             this.utilsService.success({
-              message: 'La acción de creación fue completada con éxito.',
+              message: 'El registro fue completado con éxito.',
             });
           });
         } else {
@@ -172,7 +126,7 @@ export class AbsentismoComponent implements OnInit {
             .subscribe((result: any) => {
               this.loadGrid();
               this.utilsService.success({
-                message: 'La acción de actualización fue completada con éxito.',
+                message: 'La actualización fue completada con éxito.',
               });
             });
         }
@@ -192,7 +146,9 @@ export class AbsentismoComponent implements OnInit {
     };
 
     const confirm = await this.utilsService.confirm({
-      message: '¿Está seguro en realizar la acción de alta/baja?',
+      message: estado
+        ? '¿Está seguro de agregarlo al grupo?'
+        : '¿Está seguro de quitarlo al grupo?',
     });
     if (confirm) {
       this.tipoAbsentismoService
@@ -200,16 +156,15 @@ export class AbsentismoComponent implements OnInit {
         .subscribe((result: any) => {
           this.loadGrid();
           this.utilsService.success({
-            message: 'La acción de alta/baja fue completada con éxito.',
+            message: estado
+              ? 'Se agregó al grupo con éxito.'
+              : 'Se quitó del grupo con éxito.',
           });
         });
     }
   }
 
   navegarEditar(element: TipoAbsentismoUpdateDto): void {
-    // this.router.navigate(['/usuario/editar'], {
-    //   state: { id },
-    // });
     const params: TipoAbsentismoUpdateDto = {
       idMaestroTipoAbsentismo: element.idMaestroTipoAbsentismo,
       codigo: Number(element.codigo),
@@ -217,41 +172,4 @@ export class AbsentismoComponent implements OnInit {
     };
     this.loadDialog(params);
   }
-
-  // loadDialog(id: number): void {
-  //   const dialogRef = this.dialog.open(UsuarioResetFormComponent, {
-  //     width: '400px',
-  //     maxHeight: '90vh',
-  //     disableClose: false,
-  //   });
-  //   dialogRef.afterOpened().subscribe(() => {
-  //     const componentInstance = dialogRef.componentInstance;
-  //     // const numeroDocumento = this.form.value['numeroDocumento'];
-  //     // componentInstance.setData(numeroDocumento);
-  //     // const componentInstance = dialogRefProfesional.componentInstance;
-  //     // componentInstance.setData(id);
-  //   });
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result) {
-  //       // console.log(result)
-  //       // this.expedientes.push(result);
-  //       // this.dataSourceExpedientes.data = this.expedientes;
-  //       const entidad: UsuarioResetDto = {
-  //         idUsuario: id,
-  //         clave: result,
-  //       };
-
-  //       this.usuarioService.resetearClave(entidad).subscribe((result: any) => {
-  //         this.loadGrid();
-  //         this.utilsService.success({
-  //           message: 'La acción de reseteo fue completada con éxito.',
-  //         });
-  //       });
-  //     }
-  //   });
-  // }
-
-  // checkChildren(): boolean {
-  //   return this.route.children.length != 0;
-  // }
 }

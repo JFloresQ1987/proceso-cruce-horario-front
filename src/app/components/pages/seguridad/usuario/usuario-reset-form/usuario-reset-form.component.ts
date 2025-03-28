@@ -15,17 +15,13 @@ export class UsuarioResetFormComponent {
     private utilsService: UtilsService
   ) {}
 
-  // continue() {
-  //   this.dialogRef.close(this.clave.trim());
-  // }
-
   async continue(): Promise<void> {
     if (!this.clave || this.clave.trim() === '') {
       return;
     }
-    
+
     const confirm = await this.utilsService.confirm({
-      message: '¿Está seguro en realizar la acción de reseteo?',
+      message: '¿Está seguro en resetear la clave del usuario?',
     });
     if (confirm) {
       this.dialogRef.close(this.clave.trim());

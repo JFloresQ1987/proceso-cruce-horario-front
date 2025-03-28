@@ -3,76 +3,6 @@
     <mat-card-title>Ver Proceso</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <!-- <fieldset>
-          <legend>Criterios de Búsqueda</legend>
-          <div class="form-grid">
-            <mat-form-field
-              appearance="fill"
-              class="field-col-9"
-              hintLabel="Máximo 150 caracteres"
-            >
-              <mat-label>Descripción</mat-label>
-              <input
-                #input
-                matInput
-                [(ngModel)]="descripcion"
-                maxlength="150"
-                (keydown.enter)="search()"
-                autofocus
-              />
-              <mat-hint align="end">
-                {{ input.value?.length || 0 }}/150
-              </mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="field-col-3">
-              <mat-label>Estado</mat-label>
-              <mat-select [(ngModel)]="estado">
-                <mat-option value="">Todos</mat-option>
-                <mat-option value="1">Activo</mat-option>
-                <mat-option value="0">Inactivo</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div style="text-align: left; margin-top: 20px">
-            <button
-              type="button"
-              mat-raised-button
-              color="primary"
-              (click)="search()"
-              matTooltip="Buscar"
-              matTooltipPosition="above"
-            >
-              <mat-icon>search</mat-icon>
-              Buscar
-            </button>
-            <button
-              type="button"
-              mat-raised-button
-              color="primary"
-              style="margin-left: 15px"
-              (click)="clear()"
-              matTooltip="Limpiar"
-              matTooltipPosition="above"
-            >
-              <mat-icon>cached</mat-icon>
-              Limpiar
-            </button>
-            <button
-              type="button"
-              mat-raised-button
-              color="warn"
-              style="margin-left: 15px"
-              matTooltip="Nuevo"
-              matTooltipPosition="above"
-              (click)="navegarNuevo()"
-            >
-              <mat-icon>note_add</mat-icon>
-              Nuevo
-            </button>
-          </div>
-        </fieldset> -->
-    <!-- <fieldset>
-          <legend>Listado de Resultados</legend> -->
     <div style="text-align: left; margin-bottom: 20px">
       <button
         type="button"
@@ -222,17 +152,6 @@
               >
                 <mat-icon>thumb_down</mat-icon>
               </button>
-              <!-- <button
-                      type="button"
-                      mat-icon-button
-                      color="warn"
-                      tabindex="-1"
-                      (click)="navegarBaja(element.idEspecialidad)"
-                      matTooltip="Inactivar registro."
-                      *ngIf="element.estado === '1'"
-                    >
-                      <mat-icon>thumb_down</mat-icon>
-                    </button> -->
             </td>
           </ng-container>
 
@@ -304,6 +223,26 @@
               <button
                 type="button"
                 mat-icon-button
+                style="color: purple"
+                matTooltip="Descargar el reporte resumido."
+                (click)="navegarDownloadResumeReport(element.idProceso)"
+                *ngIf="element.estado === 3"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                style="color: green"
+                matTooltip="Descargar reporte detallado."
+                (click)="navegarDownloadFullReport(element.idProceso)"
+                *ngIf="element.estado === 3"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
                 color="primary"
                 matTooltip="Consultar detalle."
                 (click)="navegarDetail(element.idProceso)"
@@ -318,7 +257,7 @@
                 (click)="navegarDownload(element.idProceso)"
                 *ngIf="element.estado === 3"
               >
-                <mat-icon>cloud_download</mat-icon>
+                <mat-icon>get_app</mat-icon>
               </button>
               <button
                 type="button"
@@ -330,28 +269,6 @@
               >
                 <mat-icon>thumb_down</mat-icon>
               </button>
-
-              <!-- <button
-                type="button"
-                mat-icon-button
-                color="primary"
-                matTooltip="Editar registro."
-                *ngIf="element.estado === 1"
-                (click)="navegarFinish(element.idProceso)"
-              >
-                <mat-icon>thumb_down</mat-icon>
-              </button> -->
-              <!-- <button
-                      type="button"
-                      mat-icon-button
-                      color="warn"
-                      tabindex="-1"
-                      (click)="navegarBaja(element.idEspecialidad)"
-                      matTooltip="Inactivar registro."
-                      *ngIf="element.estado === '1'"
-                    >
-                      <mat-icon>thumb_down</mat-icon>
-                    </button> -->
             </div>
           </div>
         </div>
@@ -367,6 +284,5 @@
         </mat-paginator>
       </div>
     </div>
-    <!-- </fieldset> -->
   </mat-card-content>
 </mat-card>

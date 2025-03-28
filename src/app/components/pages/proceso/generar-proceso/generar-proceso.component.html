@@ -1,6 +1,3 @@
-<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button> -->
 <div class="small-table" *ngIf="existsProcessPending">
   <mat-card appearance="outlined">
     <mat-card-header>
@@ -46,16 +43,6 @@
                   hidden
                 />
                 <span *ngIf="fileNameSecondCtrl">{{ fileNameSecondCtrl }}</span>
-                <!-- &nbsp;
-                  <button
-                    type="button"
-                    mat-raised-button
-                    color="warn"
-                    matTooltip=""
-                    (click)="save()"
-                  >
-                    <mat-icon>done_outline</mat-icon>Validar Archivo
-                  </button> -->
               </div>
               <div class="file-upload-container field-col-3">
                 <button
@@ -169,17 +156,13 @@
             </div>
             <div class="form-grid">
               <div class="field-col-12">
-                <!-- <button mat-button matStepperPrevious matTooltip="Volver a la etapa anterior">
-                  <mat-icon>arrow_upward</mat-icon>Atrás
-                </button>
-                &nbsp; -->
                 <button
                   type="button"
                   mat-raised-button
                   color="primary"
                   matTooltip="Continuar con la siguiente etapa"
                   [disabled]="!isCompletedSecondCtrl"
-                  matStepperNext                  
+                  matStepperNext
                 >
                   <mat-icon>arrow_downward</mat-icon>Siguiente
                 </button>
@@ -209,16 +192,6 @@
                   hidden
                 />
                 <span *ngIf="fileNameThirdCtrl">{{ fileNameThirdCtrl }}</span>
-                <!-- &nbsp;
-                  <button
-                    type="button"
-                    mat-raised-button
-                    color="warn"
-                    matTooltip=""
-                    (click)="save()"
-                  >
-                    <mat-icon>done_outline</mat-icon>Validar Archivo
-                  </button> -->
               </div>
               <div class="file-upload-container field-col-3">
                 <button
@@ -232,15 +205,6 @@
                   <mat-icon>done_outline</mat-icon>Validar Archivo
                 </button>
               </div>
-              <!-- <mat-form-field>
-                  <mat-label>Address</mat-label>
-                  <input
-                    matInput
-                    formControlName="secondCtrl"
-                    placeholder="Ex. 1 Main St, New York, NY"
-                    required
-                  />
-                </mat-form-field> -->
             </div>
             <div class="table-container">
               <div
@@ -355,7 +319,7 @@
                   color="primary"
                   matTooltip="Continuar con la siguiente etapa"
                   [disabled]="!isCompletedThirdCtrl"
-                  matStepperNext                 
+                  matStepperNext
                 >
                   <mat-icon>arrow_downward</mat-icon>Siguiente
                 </button>
@@ -388,16 +352,6 @@
                   hidden
                 />
                 <span *ngIf="fileNameFourthCtrl">{{ fileNameFourthCtrl }}</span>
-                <!-- &nbsp;
-                  <button
-                    type="button"
-                    mat-raised-button
-                    color="warn"
-                    matTooltip=""
-                    (click)="save()"
-                  >
-                    <mat-icon>done_outline</mat-icon>Validar Archivo
-                  </button> -->
               </div>
               <div class="file-upload-container field-col-3">
                 <button
@@ -418,15 +372,6 @@
                   >Realizar carga de archivo</mat-checkbox
                 >
               </div>
-              <!-- <mat-form-field>
-                  <mat-label>Address</mat-label>
-                  <input
-                    matInput
-                    formControlName="secondCtrl"
-                    placeholder="Ex. 1 Main St, New York, NY"
-                    required
-                  />
-                </mat-form-field> -->
             </div>
             <div class="table-container">
               <div
@@ -541,7 +486,7 @@
                   color="primary"
                   matTooltip="Continuar con la siguiente etapa"
                   [disabled]="!isCompletedFourthCtrl"
-                  matStepperNext         
+                  matStepperNext
                 >
                   <mat-icon>arrow_downward</mat-icon>Siguiente
                 </button>
@@ -574,16 +519,6 @@
                   hidden
                 />
                 <span *ngIf="fileNameFifthCtrl">{{ fileNameFifthCtrl }}</span>
-                <!-- &nbsp;
-                  <button
-                    type="button"
-                    mat-raised-button
-                    color="warn"
-                    matTooltip=""
-                    (click)="save()"
-                  >
-                    <mat-icon>done_outline</mat-icon>Validar Archivo
-                  </button> -->
               </div>
               <div class="file-upload-container field-col-3">
                 <button
@@ -604,15 +539,6 @@
                   >Realizar carga de archivo</mat-checkbox
                 >
               </div>
-              <!-- <mat-form-field>
-                  <mat-label>Address</mat-label>
-                  <input
-                    matInput
-                    formControlName="secondCtrl"
-                    placeholder="Ex. 1 Main St, New York, NY"
-                    required
-                  />
-                </mat-form-field> -->
             </div>
             <div class="table-container">
               <div
@@ -727,7 +653,7 @@
                   color="primary"
                   matTooltip="Continuar con la siguiente etapa"
                   [disabled]="!isCompletedFifthCtrl"
-                  matStepperNext     
+                  matStepperNext
                 >
                   <mat-icon>arrow_downward</mat-icon>Siguiente
                 </button>
@@ -738,21 +664,6 @@
         <mat-step>
           <ng-template matStepLabel>Resumen</ng-template>
           <div class="form-grid">
-            <!-- <div class="field-col-12">
-                <span>Maestro COE RRLL: </span><span>{{ fileNameFirstCtrl }}</span>
-              </div>
-              <div class="field-col-12">
-                <span>Turnos: </span><span>{{ fileNameSecondCtrl }}</span>
-              </div>
-              <div class="field-col-12">
-                <span>Marcaciones: </span><span>{{ fileNameThirdCtrl }}</span>
-              </div>
-              <div class="field-col-12">
-                <span>Horas Extras: </span><span>{{ fileNameFourthCtrl }}</span>
-              </div>
-              <div class="field-col-12">
-                <span>Absentismos: </span><span>{{ fileNameFifthCtrl }}</span>
-              </div> -->
             <div class="field-col-12">
               <button
                 mat-button
@@ -762,7 +673,6 @@
                 <mat-icon>arrow_upward</mat-icon>Atrás
               </button>
               &nbsp;
-              <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
               <button
                 type="button"
                 mat-raised-button
@@ -848,22 +758,6 @@
                     </button>
                   </td>
                 </ng-container>
-                <!-- <ng-container matColumnDef="condition">
-                  <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                    Condición
-                  </th>
-                  <td mat-cell *matCellDef="let element">
-                    {{ element.condition }}
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-                    Estado
-                  </th>
-                  <td mat-cell *matCellDef="let element">
-                    {{ element.status }}
-                  </td>
-                </ng-container> -->
                 <tr class="mat-row" *matNoDataRow>
                   <td
                     class="mat-cell no-data-cell"
